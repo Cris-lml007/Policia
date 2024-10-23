@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --primario2: #1f2f00;
+    --primario1: #385400;
+    --primario: #507700;
+    --primario-1: #6c9715;
+    --primario-2: #8bb830;
+
+    --segundo2: #052a2f;
+    --segundo1: #134046;
+    --segundo: #235157;
+    --segundo-1: #38666d;
+    --segundo-2: #588085;
+
+    --tercero2: #2f4707;
+    --tercero1: #4d6a1c;
+    --tercero: #668434;
+    --tercero-1: #86a453;
+    --tercero-2: #b0ca83;
+}
+
+.general{
+    font-family: 'Overpass', sans-serif;
+    display: flex;
+    min-height: 100vh;
+}
+.fondo{   
+    background-color: var(--tercero);
+    background-color: var(--tercero-1);
+    background: linear-gradient(135deg, #86a45355 25%, transparent 25%) -33px 0/ 66px 66px, linear-gradient(225deg, var(--tercero-1) 25%, transparent 25%) -33px 0/ 66px 66px, linear-gradient(315deg, #86a45355 25%, transparent 25%) 0px 0/ 66px 66px, linear-gradient(45deg, var(--tercero-1) 25%, var(--tercero-2) 25%) 0px 0/ 66px 66px; 
+}
+
+
+.container{
+    background-color: #fff;
+    margin: auto;
+    margin-top: 3em;
+    width: 90%;
+    padding: 3em 2em;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px rgb(0 0 0 /20);
+    text-align: center;
+}
+.login{
+    max-width: 450px;
+    margin: auto;
+}
+
+.logo{
+    max-width: 120px;
+    max-height: 120px;
+}
+
+.form_titulo{
+    font-size: 2.3rem;
+    font-weight: 900;  
+    margin: .2em;
+    color: var(--segundo2)
+}
+
+.label {
+    margin-bottom: 1.5em;
+    margin-top: 1.5em;
+    font-weight: 300;
+    font-size: 1.3rem;
+}
+.form_cont{
+    margin-top: .2em;
+    display: grid;
+    gap: 2em;
+}
+
+.form_dato{
+    position: relative;
+    --color: var(--segundo2);
+}
+
+.form_input{
+    width: 100%;
+    color: var(--segundo2);
+    background: none;
+    font-size: 1rem;
+    padding: .6em .3em;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid var(--color);
+    font-family: 'Overpass', sans-serif;
+}
+
+.form_input:focus + .form_label,
+.form_input:not(:placeholder-shown) + .form_label{
+    transform: translateY(-12px) scale(.7);
+    transform-origin: left top;
+}
+
+.form_select{
+    color: var(--color);
+    cursor: pointer;    
+    font-size: 1rem;
+    padding: .3em;
+}
+
+.form_label{
+    color: var(--color);
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 5px;
+    transform: translateY(10px);
+    transition: transform .5s, color .3s;
+}
+
+.button {
+    display: flex;
+    overflow: hidden;
+
+    padding: .5em;
+
+    cursor: pointer;
+    transition: all 150ms linear;
+    text-align: center;
+    text-transform: none;
+    text-transform: capitalize;
+
+    background-color: var(--segundo-1);
+    color: #fff;
+    font-weight: 300;
+    font-size: 1.3rem;
+    border: 0 none;
+    border-radius: .5em;
+
+    
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 160px;
+
+    &:hover {
+        transition: all 150ms linear;
+        background-color: var(--segundo1);
+    }
+    
+    &:active {
+        transition: all 150ms linear;
+        background-color: var(--segundo);
+  }
+}
+.button_span{
+    margin: .5em;
+    color: #fff;
+}
