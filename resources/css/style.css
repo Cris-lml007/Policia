@@ -33,7 +33,11 @@
 .fondo{   
     background-color: var(--tercero);
     background-color: var(--tercero-1);
-    background: linear-gradient(135deg, #86a45355 25%, transparent 25%) -33px 0/ 66px 66px, linear-gradient(225deg, var(--tercero-1) 25%, transparent 25%) -33px 0/ 66px 66px, linear-gradient(315deg, #86a45355 25%, transparent 25%) 0px 0/ 66px 66px, linear-gradient(45deg, var(--tercero-1) 25%, var(--tercero-2) 25%) 0px 0/ 66px 66px; 
+    background: radial-gradient(circle, transparent 20%, #dfe9cd 20%, #dfe9cd 80%, transparent 80%, transparent),
+                radial-gradient(circle, transparent 20%, #dfe9cd 20%, #dfe9cd 80%, transparent 80%, transparent) 17.5px 17.5px,
+                linear-gradient(#507700 1.4px, transparent 1.4px) 0 -0.7px,
+                linear-gradient(90deg, #507700 1.4px, #dfe9cd 1.4px) -0.7px 0;
+    background-size: 35px 35px, 35px 35px, 17.5px 17.5px, 17.5px 17.5px;
 }
 
 
