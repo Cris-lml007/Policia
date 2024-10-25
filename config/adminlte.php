@@ -64,7 +64,7 @@ return [
     */
 
     'logo' => '<b>Sistema Policía</b>',
-    'logo_img' => 'vendor/adminlte/dist/img/PoliciaLogo.png',
+    'logo_img' => 'img/PoliciaLogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'url' => 'img/PoliciaLogo.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -113,7 +113,7 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/PoliciaLogo.png',
+            'path' => 'img/PoliciaLogo.png',
             'alt' => 'Logo Policía boliviana',
             'effect' => 'animation__shake',
             'width' => 60,
@@ -190,8 +190,8 @@ return [
     |
     */
 
-    'classes_body' => '',
-    'classes_brand' => '',
+    'classes_body' => 'bg-olive',
+    'classes_brand' => 'bg-olive',
     'classes_brand_text' => '',
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
@@ -317,7 +317,7 @@ return [
         ],
         [
             'text' => 'Principal',
-            'url' => 'admin/pages',
+            'url' => '#',
             'icon' => 'fa fa-home',
             'label' => 4,
             'label_color' => 'success',
@@ -326,6 +326,16 @@ return [
             'text' => 'Gestión de usuarios',
             'route' => 'users',
             'icon' => 'fa fa-users',
+        ],
+        [
+            'text' => 'Gestión de personal',
+            'route' => 'dashboard.staff',
+            'icon' => 'fa fa-user-nurse',
+        ],
+        [
+            'text' => 'Gestión de unidades',
+            'route' => 'unidades',
+            'icon' => 'fa fa-building',
         ],
         ['header' => 'account_settings'],
         [

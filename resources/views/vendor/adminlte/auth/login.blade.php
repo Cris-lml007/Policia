@@ -21,10 +21,10 @@
 {{-- @section('auth_header', __('adminlte::adminlte.login_message'))
 
 @section('auth_body') --}}
-<link rel="stylesheet" href="../resources/css/style.css">
+<link rel="stylesheet" href="{{asset('css/style.css')}}">
 <div class="general fondo">
     <form action="{{ $login_url }}" method="post" class="container login">
-        <img src=" vendor/adminlte/dist/img/PoliciaLogo.png" class="rounded mx-auto d-block logo" alt="Logo policía">
+        <img src="{{asset('img/PoliciaLogo.png')}}" class="rounded mx-auto d-block logo" alt="Logo policía">
             <h2 class="form_titulo">Sistema de control de operaciones</h2>
             <h3 class="label">Inicio de sesión</h3>
         @csrf
@@ -66,7 +66,7 @@
                         Recordar contraseña
                     </label>
                 </div>
-                <button type=submit class="button {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
+                <button type=submit class="button label{{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
                     Ingresar
                      {{-- {{ __('adminlte::adminlte.sign_in') }} --}}
                 </button>

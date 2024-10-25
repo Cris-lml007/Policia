@@ -18,3 +18,5 @@ Route::prefix('/dashboard')->controller(DashboardController::class)->group(funct
 
 Route::get('/users', function() {
     return view ('users'); })->name('users');
+    Route::get('/unidades', function() {
+        return view ('unidades'); })->name('unidades');
