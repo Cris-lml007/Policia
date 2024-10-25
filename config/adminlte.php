@@ -190,7 +190,7 @@ return [
     |
     */
 
-    'classes_body' => 'bg-olive',
+    'classes_body' => '',
     'classes_brand' => 'bg-olive',
     'classes_brand_text' => '',
     'classes_content_wrapper' => '',

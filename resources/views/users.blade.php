@@ -26,8 +26,8 @@
                             <span class="fas fa-pen button_span"></span>
                         </button>
                         <button class="button inline_button">
-                            Eliminar
-                            <span class="fas fa-eraser button_span"></span>
+                            Ver datos
+                            <span class="fas fa-eye button_span"></span>
                         </button>
                     </td>
                 </tr>
@@ -42,12 +42,18 @@
                             <span class="fas fa-pen button_span"></span>
                         </button>
                         <button class="button inline_button">
-                            Eliminar
-                            <span class="fas fa-eraser button_span"></span>
+                            Ver datos
+                            <span class="fas fa-eye button_span"></span>
                         </button>
                     </td>
                 </tr>
             </table>
+            <div class="end">
+                <button class="button inline_button">
+                    Nuevo usuario
+                    <span class="fas fa-user-plus button_span"></span>
+                </button>
+            </div>
         </div>
         
     </div>
