@@ -9,4 +9,6 @@ class DashboardController extends Controller
     public function staff(){
         return view('staff');
     }
+
+
 }

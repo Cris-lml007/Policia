@@ -13,5 +13,5 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('/dashboard')->controller(DashboardController::class)->group(function(){
-    Route::get('staff','staff')->name('dashboard.staff');
+    Route::get('staff','staff')->name('dashboard.staff');    
 });
