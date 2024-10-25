@@ -12,4 +12,8 @@ class Range extends Model
     public $fillable = [
         'name'
     ];
+
+    public function persons(){
+        return $this->hasMany(Person::class);
+    }
 }
