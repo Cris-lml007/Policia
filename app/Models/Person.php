@@ -20,4 +20,8 @@ class Person extends Model
         'cellular',
         'observation'
     ];
+
+    public function user(){
+        return $this->hasOne(User::class);
+    }
 }
