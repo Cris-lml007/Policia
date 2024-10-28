@@ -16,9 +16,10 @@ return new class extends Migration
             $table->integer('ci');
             $table->string('surname');
             $table->string('name');
-            $table->unsignedBigInteger('range_id');
+            $table->boolean('gender');
+            $table->unsignedBigInteger('range_id')->nullable(true);
             $table->string('position');
-            $table->unsignedBigInteger('department_id');
+            $table->unsignedBigInteger('department_id')->nullable(true);
             $table->date('birthdate');
             $table->string('observation');
             $table->integer('cellular');

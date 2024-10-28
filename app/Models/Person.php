@@ -18,6 +18,23 @@ class Person extends Model
         'department_id',
         'birthdate',
         'cellular',
-        'observation'
+        'observation',
+        'gender'
     ];
+
+    public function user(){
+        return $this->hasOne(User::class);
+    }
+
+    public function range(){
+        return $this->belongsTo(Range::class);
+    }
+
+    public function getRangeAttribute(){
+        return $this->belongsTo(Range::class)->first()->name ?? '';
+    }
+
+    // public function department(){
+    //     return $this->belongsTo()
+    // }
 }
