@@ -63,8 +63,8 @@ return [
     |
     */
 
-    'logo' => '<b>sistema</b>policia',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>Sistema Policía</b>',
+    'logo_img' => 'img/PoliciaLogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'url' => 'img/PoliciaLogo.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -113,8 +113,8 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'AdminLTE Preloader Image',
+            'path' => 'img/PoliciaLogo.png',
+            'alt' => 'Logo Policía boliviana',
             'effect' => 'animation__shake',
             'width' => 60,
             'height' => 60,
@@ -154,8 +154,8 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => null,
+    'layout_fixed_sidebar' => true,
+    'layout_fixed_navbar' => true,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
 
@@ -190,15 +190,15 @@ return [
     |
     */
 
-    'classes_body' => '',
-    'classes_brand' => '',
+    'classes_body' => 'bg-olive',
+    'classes_brand' => 'bg-olive',
     'classes_brand_text' => '',
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-dark-olive',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_topnav' => 'navbar-olive navbar-dark',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
@@ -317,10 +317,25 @@ return [
         ],
         [
             'text' => 'Principal',
-            'url' => 'admin/pages',
+            'url' => '#',
             'icon' => 'fa fa-home',
             'label' => 4,
             'label_color' => 'success',
+        ],
+        [
+            'text' => 'Gestión de usuarios',
+            'route' => 'users',
+            'icon' => 'fa fa-users',
+        ],
+        [
+            'text' => 'Gestión de personal',
+            'route' => 'dashboard.staff',
+            'icon' => 'fa fa-user-nurse',
+        ],
+        [
+            'text' => 'Gestión de unidades',
+            'route' => 'unidades',
+            'icon' => 'fa fa-building',
         ],
         [
             'text' => 'Gestión de Personal',
