@@ -31,9 +31,11 @@
     font-family: 'Overpass', sans-serif;
     display: flex;
     min-height: 100vh;
+    /* margenes configurados para evitar los marcos blancos en los bordes laterales */
+    margin: 0 -20px;
 }
 
-.fondo{   
+.fondo{
     background-color: var(--tercero);
     background-color: var(--tercero-1);
     background: radial-gradient(circle, transparent 20%, #dfe9cd 20%, #dfe9cd 80%, transparent 80%, transparent),
@@ -69,7 +71,7 @@
 
 .form_titulo{
     font-size: 2.3rem;
-    font-weight: 900;  
+    font-weight: 900;
     margin: .2em;
     color: var(--segundo2)
 }
@@ -116,7 +118,7 @@
 
 .form_select{
     color: var(--color);
-    cursor: pointer;    
+    cursor: pointer;
     font-size: 1rem;
     padding: .3em;
 }
@@ -150,7 +152,7 @@
     border: 0 none;
     border-radius: .5em;
 
-    
+
     justify-content: center;
     align-items: center;
     flex: 0 0 160px;
@@ -159,7 +161,7 @@
         transition: all 150ms linear;
         background-color: var(--tercero1);
     }
-    
+
     &:active {
         transition: all 150ms linear;
         background-color: var(--tercero);
@@ -201,4 +203,9 @@ td:last-child{
 }
 tr:nth-child(even){
     background-color: #e9e9e9;
+}
+
+.tr-select:hover{
+    background-color: #E9E9E9;
+    cursor: pointer;
 }
