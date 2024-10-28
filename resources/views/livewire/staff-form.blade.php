@@ -1,59 +1,59 @@
 <div>
     <div class="input-group">
         <span class="input-group-text">CI</span>
-        <input wire:model="ci" type="text" class="form-control">
+        <input wire:model.lazy="ci" type="number" class="form-control">
     </div>
     @error('ci')
-        <span class="invalid-feedback" role="alert">
+        <span class="text-danger">
             <strong>{{ $message }}</strong>
         </span>
     @enderror
     <div class="input-group">
         <span class="input-group-text">Apellidos</span>
-        <input wire:model="surname" type="text" class="form-control">
+        <input wire:model.lazy="surname" type="text" class="form-control">
     </div>
     @error('surname')
-        <span class="invalid-feedback" role="alert">
+        <span class="text-danger">
             <strong>{{ $message }}</strong>
         </span>
     @enderror
     <div class="input-group">
         <span class="input-group-text">Nombres</span>
-        <input wire:model="name" type="text" class="form-control">
+        <input wire:model.lazy="name" type="text" class="form-control">
     </div>
     @error('name')
-        <span class="invalid-feedback" role="alert">
+        <span class="text-danger">
             <strong>{{ $message }}</strong>
         </span>
     @enderror
     <div class="input-group">
         <span class="input-group-text">Fecha de Nacimiento</span>
-        <input wire:model="birthdate" type="date" class="form-control">
+        <input wire:model.lazy="birthdate" type="date" class="form-control">
     </div>
     @error('birthdate')
-        <span class="invalid-feedback" role="alert">
+        <span class="text-danger">
             <strong>{{ $message }}</strong>
         </span>
     @enderror
     <div class="input-group">
         <span class="input-group-text">Genero</span>
-        <select wire:model="gender" class="form-select">
+        <select wire:model.lazy="gender" class="form-select">
             <option value="null">Seleccione</option>
             <option value=1>Hombre</option>
             <option value=0>Mujer</option>
         </select>
     </div>
     @error('gender')
-        <span class="invalid-feedback" role="alert">
+        <span class="text-danger">
             <strong>{{ $message }}</strong>
         </span>
     @enderror
     <div class="input-group">
         <span class="input-group-text">Rango</span>
-        <input wire:model="range" class="form-control" list="hola">
+        <input wire:model.lazy="range" class="form-control" list="hola">
     </div>
     @error('range')
-        <span class="invalid-feedback" role="alert">
+        <span class="text-danger">
             <strong>{{ $message }}</strong>
         </span>
     @enderror
@@ -75,8 +75,13 @@
     </div>
     <div class="input-group">
         <span class="input-group-text">Celular</span>
-        <input wire:model="cellular" type="number" class="form-control">
+        <input wire:model.lazy="cellular" type="number" class="form-control" max="8" min="8">
     </div>
+    @error('cellular')
+        <span class="text-danger">
+            <strong>{{ $message }}</strong>
+        </span>
+    @enderror
     <datalist id="hola" style="background-color: ;">
         @foreach ($this->getRanges() as $range)
             <option value="{{ $range->name }}"></option>
@@ -87,9 +92,9 @@
         <label for="observations">Observaciones</label>
     </div>
     <div class="modal-footer px-0">
-        <button class="btn-secondary btn" data-bs-dismiss="modal">Cancelar</button>
-        @if (!$isSave)
+        <button wire:click="restart" class="btn-secondary btn" data-bs-dismiss="modal">Cancelar</button>
+        {{-- @if (!$isSave) --}}
             <button wire:click="updateOrCreate" class="btn-success btn">Guardar</button>
-        @endif
+        {{-- @endif --}}
     </div>
 </div>

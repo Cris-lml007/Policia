@@ -323,25 +323,20 @@ return [
             'label_color' => 'success',
         ],
         [
-            'text' => 'Gestión de usuarios',
-            'route' => 'users',
-            'icon' => 'fa fa-users',
-        ],
-        [
             'text' => 'Gestión de personal',
             'route' => 'dashboard.staff',
             'icon' => 'fa fa-user-nurse',
         ],
         [
+            'text' => 'Gestión de usuarios',
+            'route' => 'users',
+            'icon' => 'fa fa-users',
+        ],
+        [
             'text' => 'Gestión de unidades',
             'route' => 'unidades',
             'icon' => 'fa fa-building',
-        ],
-        [
-            'text' => 'Gestión de Personal',
-            'route' => 'dashboard.staff',
-            'icon' => 'fas fa-fw fa-user',
-        ],
+        ]
     ],
 
     /*

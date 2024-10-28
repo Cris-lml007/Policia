@@ -28,4 +28,8 @@ class StaffTable extends Component
         }
         return view('livewire.staff-table',compact('persons'));
     }
+
+    public function getPerson($id){
+        $this->dispatch('get',$id);
+    }
 }
