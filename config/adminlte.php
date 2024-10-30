@@ -317,12 +317,12 @@ return [
         ],
         [
             'text' => 'Principal',
-            'url' => '#',
+            'route' => 'dashboard.home',
             'icon' => 'fa fa-home',
         ],
         [
             'text' => 'Gestión de usuarios',
-            'route' => 'users',
+            'route' => 'dashboard.users',
             'icon' => 'fa fa-users',
         ],
         [
@@ -331,13 +331,8 @@ return [
             'icon' => 'fa fa-user-nurse',
         ],
         [
-            'text' => 'Gestión de usuarios',
-            'route' => 'users',
-            'icon' => 'fa fa-users',
-        ],
-        [
             'text' => 'Gestión de unidades',
-            'route' => 'unidades',
+            'route' => 'dashboard.unidades',
             'icon' => 'fa fa-building',
         ]
     ],
