@@ -9,4 +9,13 @@ class DashboardController extends Controller
     public function staff(){
         return view('staff');
     }
+    public function users(){
+        return view('users');
+    }
+    public function unidades(){
+        return view('unidades');
+    }
+    public function home(){
+        return view('home');
+    }
 }

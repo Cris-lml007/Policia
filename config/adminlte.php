@@ -190,7 +190,7 @@ return [
     |
     */
 
-    'classes_body' => 'bg-olive',
+    'classes_body' => '',
     'classes_brand' => 'bg-olive',
     'classes_brand_text' => '',
     'classes_content_wrapper' => '',
@@ -317,10 +317,13 @@ return [
         ],
         [
             'text' => 'Principal',
-            'url' => '#',
+            'route' => 'dashboard.home',
             'icon' => 'fa fa-home',
-            'label' => 4,
-            'label_color' => 'success',
+        ],
+        [
+            'text' => 'Gestión de usuarios',
+            'route' => 'dashboard.users',
+            'icon' => 'fa fa-users',
         ],
         [
             'text' => 'Gestión de personal',
@@ -328,13 +331,8 @@ return [
             'icon' => 'fa fa-user-nurse',
         ],
         [
-            'text' => 'Gestión de usuarios',
-            'route' => 'users',
-            'icon' => 'fa fa-users',
-        ],
-        [
             'text' => 'Gestión de unidades',
-            'route' => 'unidades',
+            'route' => 'dashboard.unidades',
             'icon' => 'fa fa-building',
         ]
     ],
