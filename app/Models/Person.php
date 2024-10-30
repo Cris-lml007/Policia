@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,8 +31,22 @@ class Person extends Model
         return $this->belongsTo(Range::class);
     }
 
-    public function getRangeAttribute(){
-        return $this->belongsTo(Range::class)->first()->name ?? '';
+    // public function getRangeAttribute(){
+    //     return $this->range->name  ?? '';
+    // }
+
+    public function surname() : Attribute{
+        return Attribute::make(
+            set: fn($value) => strtoupper($value),
+            get: fn($value) => ucwords($value)
+        );
+    }
+
+    public function name() : Attribute{
+        return Attribute::make(
+            set: fn($value) => strtoupper($value),
+            get: fn($value) => ucwords($value)
+        );
     }
 
     // public function department(){
