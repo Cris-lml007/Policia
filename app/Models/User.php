@@ -24,7 +24,7 @@ class User extends Authenticatable
         'password',
     ];
 
-    public function person(){
+    public function getPerson(){
         return $this->belongsTo(Person::class);
     }
 

@@ -13,9 +13,9 @@ class StaffForm extends Component
     public $id;
     #[Validate('required|integer')]
     public $ci;
-    #[Validate('required|alpha')]
+    #[Validate('required|regex:/^[A-Za-z\s]+$/')]
     public $surname;
-    #[Validate('required|alpha')]
+    #[Validate('required|regex:/^[A-Za-z\s]+$/')]
     public $name;
     #[Validate('required|between:0,1')]
     public $gender;
@@ -25,7 +25,7 @@ class StaffForm extends Component
     #[Validate('integer|min_digits:8|max_digits:8')]
     public $cellular;
     public $observation;
-    #[Validate('exists:ranges,name')]
+    #[Validate('nullable|exists:ranges,name')]
     public $range;
 
     public $isSave = false;
@@ -58,7 +58,7 @@ class StaffForm extends Component
                 'position' => $this->position,
                 'cellular' => $this->cellular,
                 'observation' => $this->observation,
-                'range_id' => Range::where('name',$this->range)->first()->id
+                'range_id' => Range::where('name',$this->range)->first()->id ?? null
             ],
             [
                 'ci' => $this->ci
@@ -69,7 +69,7 @@ class StaffForm extends Component
     }
 
     public function getRanges(){
-        return Range::all();
+        // return Range::all();
     }
 
     public function restart(){
