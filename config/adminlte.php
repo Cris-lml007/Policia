@@ -334,6 +334,11 @@ return [
             'text' => 'Gestión de unidades',
             'route' => 'dashboard.unidades',
             'icon' => 'fa fa-building',
+        ],
+        [
+            'text' => 'Lista de servicios',
+            'route' => 'dashboard.service-admin',
+            'icon' => 'fa fa-clipboard-list',
         ]
     ],
 
