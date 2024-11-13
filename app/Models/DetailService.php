@@ -19,7 +19,6 @@ class DetailService extends Model
     public function service(){
         return $this->belongsTo(Service::class);
     }
-
     public function groupService(){
         return $this->hasOne(GroupService::class);
     }

@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('detail_services', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->unsignedBigInteger('service_id')->references('id')->on('services');
-            $table->unsignedBigInteger('group_service_id')->references('id')->on('group_services');
-            $table->unsignedBigInteger('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('service_id');
+            $table->foreign('service_id')->references('id')->on('services');
+            $table->unsignedBigInteger('group_service_id');
+            $table->foreign('group_service_id')->references('id')->on('group_services');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

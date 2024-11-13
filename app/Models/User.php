@@ -20,13 +20,12 @@ class User extends Authenticatable
     protected $fillable = [
         'role',
         'email',
-        'password',
-        'range_id'
+        'password'
     ];
 
     public function groupServices(){
-        return $this->belongsTo(DetailService::class);
-        return $this->belongsTo(GroupService::class);
+        return $this->hasMany(DetailService::class);
+        return $this->hasMany(GroupService::class);
     }
 
     /**

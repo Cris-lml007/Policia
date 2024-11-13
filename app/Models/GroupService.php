@@ -22,6 +22,6 @@ class GroupService extends Model
         return $this->hasOne(DetailService::class);
     }
     public function users(){
-        return $this->hasOne(User::class);
+        return $this->hasMany(User::class);
     }
 }
