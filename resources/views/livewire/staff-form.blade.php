@@ -1,100 +1,51 @@
 <div>
     <div class="input-group">
         <span class="input-group-text">CI</span>
-        <input wire:model.lazy="ci" type="number" class="form-control">
+        <input wire:model.lazy="ci" type="number" class="form-control" readonly>
     </div>
-    @error('ci')
-        <span class="text-danger">
-            <strong>{{ $message }}</strong>
-        </span>
-    @enderror
     <div class="input-group">
         <span class="input-group-text">Apellidos</span>
-        <input wire:model.lazy="surname" type="text" class="form-control">
+        <input wire:model.lazy="surname" type="text" class="form-control" readonly>
     </div>
-    @error('surname')
-        <span class="text-danger">
-            <strong>{{ $message }}</strong>
-        </span>
-    @enderror
     <div class="input-group">
         <span class="input-group-text">Nombres</span>
-        <input wire:model.lazy="name" type="text" class="form-control">
+        <input wire:model.lazy="name" type="text" class="form-control" readonly>
     </div>
-    @error('name')
-        <span class="text-danger">
-            <strong>{{ $message }}</strong>
-        </span>
-    @enderror
-    <div class="input-group">
-        <span class="input-group-text">Fecha de Nacimiento</span>
-        <input wire:model.lazy="birthdate" type="date" class="form-control">
-    </div>
-    @error('birthdate')
-        <span class="text-danger">
-            <strong>{{ $message }}</strong>
-        </span>
-    @enderror
-    <div class="input-group">
-        <span class="input-group-text">Genero</span>
-        <select wire:model.lazy="gender" class="form-select">
-            <option value="null">Seleccione</option>
-            <option value=1>Hombre</option>
-            <option value=0>Mujer</option>
-        </select>
-    </div>
-    @error('gender')
-        <span class="text-danger">
-            <strong>{{ $message }}</strong>
-        </span>
-    @enderror
     <div class="input-group">
         <span class="input-group-text">Rango</span>
-        <input wire:model.lazy="range" class="form-control" list="hola">
+        <input wire:model.lazy="range" class="form-control" list="hola" readonly>
     </div>
-    @error('range')
-        <span class="text-danger">
-            <strong>{{ $message }}</strong>
-        </span>
-    @enderror
     <div class="input-group">
         <span class="input-group-text">Cargo</span>
-        <input wire:model="position" type="text" class="form-control">
-    </div>
-    <div class="input-group">
-        <span class="input-group-text">Unidad</span>
-        <select class="form-select">
-            <option value="">seleccione</option>
-        </select>
-    </div>
-    <div class="input-group">
-        <span class="input-group-text">Division</span>
-        <select class="form-select">
-            <option value="">seleccione</option>
-        </select>
+        <input wire:model="position" type="text" class="form-control" readonly>
     </div>
     <div class="input-group">
         <span class="input-group-text">Celular</span>
-        <input wire:model.lazy="cellular" type="number" class="form-control" max="8" min="8">
+        <input wire:model.lazy="cellular" type="number" class="form-control" max="8" min="8" readonly>
     </div>
-    @error('cellular')
-        <span class="text-danger">
-            <strong>{{ $message }}</strong>
-        </span>
-    @enderror
     <datalist id="hola" style="background-color: ;">
-        @foreach ($this->getRanges() as $range)
+        @foreach ($this->getRanges() ?? [] as $range)
             <option value="{{ $range->name }}"></option>
         @endforeach
     </datalist>
-    <div class="form-floating">
-        <textarea wire:model="observation" class="form-control" id="observations"></textarea>
-        <label for="observations">Observaciones</label>
+    <h5 class="card-text mt-2 mb-2">Credencial de Acceso</h5>
+    <div class="input-group">
+        <span class="input-group-text">usuario</span>
+        <input class="form-control">
+    </div>
+    <div class="input-group">
+        <span class="input-group-text">Contraseña</span>
+        <input class="form-control">
+    </div>
+    <div class="input-group mb-2">
+        <span class="input-group-text">Confirmar Contraseña</span>
+        <input class="form-control">
+    </div>
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Bloquear Usuario</label>
     </div>
     <div class="modal-footer px-0">
-        <button wire:click="restart" class="btn-secondary btn" data-bs-dismiss="modal">Cancelar</button>
-        {{-- @if (!$isSave) --}}
-            <button wire:click="updateOrCreate" class="btn-success btn">Guardar</button>
-        {{-- @endif --}}
+        <button wire:click="restart" class="btn-secondary btn" data-bs-dismiss="modal">Cerrar</button>
     </div>
 </div>
