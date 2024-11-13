@@ -326,11 +326,6 @@ return [
             'icon' => 'fa fa-users',
         ],
         [
-            'text' => 'Servicios Policiales',
-            'route' => 'dashboard.unidades',
-            'icon' => 'fa fa-building',
-        ],
-        [
             'text' => 'Lista de servicios',
             'route' => 'dashboard.service-admin',
             'icon' => 'fa fa-clipboard-list',
@@ -338,7 +333,7 @@ return [
         [
             'text' => 'Servicio policial',
             'route' => 'dashboard.service-supervisor',
-            'icon' => 'fa fa-people-group',
+            'icon' => 'fa fa-table',
         ]
     ],
 
