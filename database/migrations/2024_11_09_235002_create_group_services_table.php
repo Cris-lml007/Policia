@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('group_services', function (Blueprint $table) {
             $table->id();
-            $table->int('supervisor_id');
-            $table->string('lat');
-            $table->string('long');
+            $table->integer('supervisor_id');
+            $table->double('lat');
+            $table->double('long');
             $table->timestamps();
-        });
-        schema::table('services',function(Blueprint $table){
-            $table->foreign('service_id')->references('id')->on('services');
+            $table->unsignedBigInteger('service_id')->references('id')->on('services');
+            $table->unsignedBigInteger('group_service_id')->references('id')->on('group_services');
+            $table->unsignedBigInteger('user_id')->references('id')->on('users');
         });
     }
 

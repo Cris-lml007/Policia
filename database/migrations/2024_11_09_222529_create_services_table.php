@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->dateTime('date');
-            $table->string('status');
-            $table->string('lat');
-            $table->string('long');
+            $table->integer('status');
+            $table->double('lat');
+            $table->double('long');
             $table->timestamps();
         });
     }

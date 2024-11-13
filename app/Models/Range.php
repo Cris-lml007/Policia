@@ -14,8 +14,8 @@ class Range extends Model
         'name'
     ];
 
-    public function persons(){
-        return $this->hasMany(Person::class);
+    public function users(){
+        return $this->hasMany(User::class);
     }
 
     public function name():Attribute{

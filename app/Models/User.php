@@ -18,14 +18,15 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'person_id',
         'role',
         'email',
         'password',
+        'range_id'
     ];
 
-    public function person(){
-        return $this->belongsTo(Person::class);
+    public function groupServices(){
+        return $this->belongsTo(DetailService::class);
+        return $this->belongsTo(GroupService::class);
     }
 
     /**
