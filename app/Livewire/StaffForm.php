@@ -4,6 +4,9 @@ namespace App\Livewire;
 
 use App\Models\Person;
 use App\Models\Range;
+use App\Models\User;
+use Exception;
+use GuzzleHttp\Client;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -17,59 +20,60 @@ class StaffForm extends Component
     public $surname;
     #[Validate('required|regex:/^[A-Za-z\s]+$/')]
     public $name;
-    #[Validate('required|between:0,1')]
-    public $gender;
     public $position;
-    #[Validate('required|date')]
-    public $birthdate;
     #[Validate('integer|min_digits:8|max_digits:8')]
     public $cellular;
-    public $observation;
-    #[Validate('nullable|exists:ranges,name')]
     public $range;
+    public $active;
+    public $username;
+    #[Validate('confirmed')]
+    public $password;
+    public $password_confirmation;
 
     public $isSave = false;
+    public User $person;
 
     public $listeners = ['get'=>'getPerson'];
 
-    public function getPerson($id){
-        $p = Person::find($id);
+    public function toggleActive(){
+        $user = User::where('ci',$this->ci)->first();
+        $user->active = !$user->active;
+        $user->save();
+        $this->dispatch('update');
+    }
+
+    public function getPerson($ci){
+        $p = User::where('ci',$ci)->first();
+        $this->person = $p;
         $this->surname = $p->surname;
         $this->name = $p->name;
         $this->ci = $p->ci;
-        $this->observation = $p->observation;
-        $this->cellular = $p->cellular;
-        $this->range = $p->range->name ?? null;
-        $this->gender = $p->gender;
-        $this->position = $p->position;
-        $this->birthdate = $p->birthdate;
+        $client = new Client();
+        try {
+            $response = $client->get('http://localhost:9000/api/staff/'.$ci);
+            $json = json_decode($response->getBody());
+        } catch (Exception $error) {
+        }finally{
+            $this->cellular = $p->cellular;
+            $this->range = $p->range;
+            $this->position = $json->position ?? null;
+            $this->active = $p->active==0 ? true : false;
+            $this->username = $p->username;
+        }
     }
 
 
-    public function updateOrCreate(){
+    public function update(){
         $this->validate();
-        Person::updateOrCreate(
-            [
-                'ci' => $this->ci,
-                'surname' => $this->surname,
-                'name' => $this->name,
-                'birthdate' => $this->birthdate,
-                'gender' => $this->gender,
-                'position' => $this->position,
-                'cellular' => $this->cellular,
-                'observation' => $this->observation,
-                'range_id' => Range::where('name',$this->range)->first()->id ?? null
-            ],
-            [
-                'ci' => $this->ci
-            ]
-        );
+        return dd('hoa');
+        $this->person->password = $this->password;
+        $this->person->save();
         $this->dispatch('update');
         $this->isSave = true;
     }
 
-    public function getRanges(){
-        // return Range::all();
+    public function updatedPasswordConfirmation(){
+        if(!empty($this->password_confirmation)) $this->validate();
     }
 
     public function restart(){
