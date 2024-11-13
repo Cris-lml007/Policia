@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('range');
             $table->integer('cellular');
             $table->string('username')->unique();
-            // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('role')->default(1);
             $table->boolean('active')->default(true);

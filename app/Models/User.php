@@ -28,6 +28,10 @@ class User extends Authenticatable
         'cellular'
     ];
 
+    public function groupServices(){
+        return $this->hasMany(DetailService::class);
+        return $this->hasMany(GroupService::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
