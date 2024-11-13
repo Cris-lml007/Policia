@@ -104,6 +104,10 @@
         margin: .5em;
 }
 
+b{
+    font-weight: 600;
+}
+
 .label {
     margin-bottom: 1em;
     margin-top: 1em;
@@ -201,11 +205,11 @@
 }
 .end{
     text-align: right;
-    padding-block: .8em;
+    padding-block: .5em;
 }
 .start{
     text-align: left;
-    padding-block: .8em;
+    padding-block: .5em;
 }
 table {
     width: 100%;

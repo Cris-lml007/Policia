@@ -18,13 +18,13 @@
                 <thead class="table_header">
                     <th>Servicio</th>
                     <th>Estado</th>
-                    <th>Ubicación de formación (latitud / longitud)</th>
+                    <th>Fecha de operación</th>
                     <th></th>
                 </thead>
                 <tr>
                     <td>GV SAN JOSE Vs. THE STRONGEST</td>
                     <td>Programado</td>
-                    <td>-17.946398 / -67.111552</td>
+                    <td>16/12/2024</td>
                     <td>
                         <button class="button inline_button" data-toggle="collapse" data-parent="#parent" href="#details1">
                             Detalles
@@ -35,6 +35,10 @@
                 <tr>
                     <td colspan="4" >
                         <div class="cont panel-collapse collapse in" data-parent="#parent" id="details1">
+                            <p class="label">
+                                <b>Cantidad grupos: </b> 4 &emsp;&emsp;
+                                <b>Cantidad efectivos: </b> 16
+                            </p>
                             <p class="label subtitulo">Personal asignado a la operación:<br></p>
                             <table>
                                 <thead class="table_header color_header">
@@ -84,7 +88,7 @@
                 <tr>
                     <td>PROCESION DE LA VIRGEN DEL SANTUARIO DEL SOCAVON</td>
                     <td>Programado</td>
-                    <td>-17.968767 / -67.103802</td>
+                    <td>02/02/2025</td>
                     <td>
                         <button class="button inline_button" data-toggle="collapse" data-parent="#parent" href="#details2">
                             Detalles
@@ -95,6 +99,10 @@
                 <tr>
                     <td colspan="4" >
                         <div class="cont panel-collapse collapse in" data-parent="#parent" id="details2">
+                            <p class="label">
+                                <b>Cantidad grupos: </b> 1 &emsp;&emsp;
+                                <b>Cantidad efectivos: </b> 4
+                            </p>
                             <p class="label subtitulo">Personal asignado a la operación:<br></p>
                             <table>
                                 <thead class="table_header color_header">
