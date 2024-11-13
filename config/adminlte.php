@@ -334,6 +334,11 @@ return [
             'text' => 'Gestión de unidades',
             'route' => 'dashboard.unidades',
             'icon' => 'fa fa-building',
+        ],
+        [
+            'text' => 'Control de Asistencia',
+            'route' => 'dashboard.attendance',
+            'icon' => 'fa fa-user-check',
         ]
     ],
 

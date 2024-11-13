@@ -37,7 +37,7 @@ $dataPoints = array(
                 <h2 class="form_titulo"> Resumen operaciones</h2>
                 <div>
                     <script>
-                        window.onload = function() {
+                        window.onload = function(){
                          
                         var chart = new CanvasJS.Chart("chartContainer", {
                             theme: "light1",
@@ -97,13 +97,9 @@ $dataPoints = array(
                             </button>
                         </td> 
                     </tr>
-                </table>
-                
-                
+                </table>                
             </div>
-    </div>
-    
-    
+    </div> 
 </div>
 @endsection
 
