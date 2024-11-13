@@ -28,13 +28,6 @@ class User extends Authenticatable
         'cellular'
     ];
 
-<<<<<<< HEAD
-    public function person(){
-        return $this->belongsTo(Person::class);
-    }
-
-=======
->>>>>>> e141e8d9a17fb5fb2f1cdbc927fd48e3e7764704
     /**
      * The attributes that should be hidden for serialization.
      *
