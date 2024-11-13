@@ -3,12 +3,6 @@
 @section('content')
     <div class="general fondo">
         <div style="width: 100%;margin-top: 10px;">
-            <div style="width: 100%;display: flex ;justify-content: end;padding-right: 28px;">
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#pepito">
-                    <i class="fa fa-plus"></i>
-                    Añadir Personal
-                </button>
-            </div>
             <livewire:staff-table />
 
             {{-- <div style="width: 100%;display: flex ;justify-content: end;padding-right: 28px;"> --}}
@@ -19,13 +13,9 @@
             {{-- </div> --}}
             {{-- <livewire:range-table /> --}}
 
-            {{-- <x-modal id="modalStaff" title="Añadir Personal" class="modal-xl"> --}}
-            {{--     <livewire:staff-form /> --}}
-            {{-- </x-modal> --}}
-
-        <x-modal id="pepito" title="primer modal">
-            <h1>hola como estas</h1>
-        </x-modal>
+            <x-modal id="modalStaff" title="Añadir Personal" class="modal-xl">
+                <livewire:staff-form />
+            </x-modal>
 
             {{-- <x-modal id="modalGrade" title="Añadir Grado"> --}}
             {{--     <livewire:range-form /> --}}
