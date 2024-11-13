@@ -328,7 +328,12 @@ return [
         [
             'text' => 'Servicios Policiales',
             'route' => 'dashboard.unidades',
-            'icon' => 'fa fa-calendar',
+            'icon' => 'fa fa-building',
+        ],
+        [
+            'text' => 'Lista de servicios',
+            'route' => 'dashboard.service-admin',
+            'icon' => 'fa fa-clipboard-list'
         ]
     ],
 
