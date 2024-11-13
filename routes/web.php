@@ -17,5 +17,6 @@ Route::prefix('/dashboard')->controller(DashboardController::class)->group(funct
     Route::get('users','users')->name('dashboard.users');
     Route::get('unidades','unidades')->name('dashboard.unidades');
     Route::get('home','home')->name('dashboard.home');
+    Route::get('service-admin','serviceAdmin')->name('dashboard.service-admin');
 });
 

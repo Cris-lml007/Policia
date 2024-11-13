@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap');
-
 *{
     margin: 0;
     padding: 0;
@@ -58,7 +57,7 @@
     margin: auto;
     margin-top: 3em;
     width: 95%;
-    padding: 3em 2em;
+    padding: 2em 2em;
     border-radius: 15px;
     box-shadow: 5px 5px 10px rgb(0 0 0 /20);
     text-align: center;
@@ -66,9 +65,15 @@
     color: var(--segundo2);
 }
 
-.lineal{
-    margin-inline: 3em;
-    align-self: center;
+.cont{
+    background-color: var(--fondo);
+    margin: auto;
+    border-radius: 10px;
+    width: 95%;
+    padding: 3em 2em;
+    text-align: center;
+    overflow: auto;
+    color: var(--segundo2);
 }
 
 .login{
@@ -99,9 +104,13 @@
         margin: .5em;
 }
 
+b{
+    font-weight: 600;
+}
+
 .label {
-    margin-bottom: 1.5em;
-    margin-top: 1.5em;
+    margin-bottom: 1em;
+    margin-top: 1em;
     font-weight: 300;
     font-size: 1.3rem;
 }
@@ -196,11 +205,11 @@
 }
 .end{
     text-align: right;
-    padding-block: .8em;
+    padding-block: .5em;
 }
 .start{
     text-align: left;
-    padding-block: .8em;
+    padding-block: .5em;
 }
 table {
     width: 100%;
@@ -216,7 +225,7 @@ th, td{
     padding: .5em;
     border-right: solid 1px var(--primario);
 }
-td:last-child{
+th, td:last-child{
     border-right: 0px;
 }
 .table_header{
@@ -225,6 +234,9 @@ td:last-child{
     color: #fff;
     font-weight: 500;
     padding: .8em;
+}
+.color_header{
+    background-color: var(--primario-2);
 }
 tr:nth-child(even){
     background-color: #e9e9e9;

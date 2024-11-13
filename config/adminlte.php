@@ -321,19 +321,19 @@ return [
             'icon' => 'fa fa-home',
         ],
         [
-            'text' => 'Gestión de usuarios',
-            'route' => 'dashboard.users',
+            'text' => 'Gestión de Personal',
+            'route' => 'dashboard.staff',
             'icon' => 'fa fa-users',
         ],
         [
-            'text' => 'Gestión de personal',
-            'route' => 'dashboard.staff',
-            'icon' => 'fa fa-user-nurse',
-        ],
-        [
-            'text' => 'Gestión de unidades',
+            'text' => 'Servicios Policiales',
             'route' => 'dashboard.unidades',
             'icon' => 'fa fa-building',
+        ],
+        [
+            'text' => 'Lista de servicios',
+            'route' => 'dashboard.service-admin',
+            'icon' => 'fa fa-clipboard-list'
         ]
     ],
 

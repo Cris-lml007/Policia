@@ -18,16 +18,20 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'ci',
+        'surname',
+        'name',
         'role',
-        'email',
-        'password'
+        'username',
+        'password',
+        'range',
+        'cellular'
     ];
 
     public function groupServices(){
         return $this->hasMany(DetailService::class);
         return $this->hasMany(GroupService::class);
     }
-
     /**
      * The attributes that should be hidden for serialization.
      *
