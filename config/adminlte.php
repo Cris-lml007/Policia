@@ -334,6 +334,11 @@ return [
             'text' => 'Lista de servicios',
             'route' => 'dashboard.service-admin',
             'icon' => 'fa fa-clipboard-list',
+        ],
+        [
+            'text' => 'Servicio policial',
+            'route' => 'dashboard.service-supervisor',
+            'icon' => 'fa fa-people-group',
         ]
     ],
 
