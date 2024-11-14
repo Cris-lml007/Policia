@@ -20,8 +20,8 @@ class GroupService extends Model
         return $this->belongsTo(Service::class);
     }
 
-    public function detailService(){
-        return $this->hasOne(DetailService::class);
+    public function detService(){
+        return $this->hasOne(DetService::class);
     }
     public function users(){
         return $this->hasMany(User::class);

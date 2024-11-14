@@ -29,8 +29,10 @@ class User extends Authenticatable
     ];
 
     public function groupServices(){
-        return $this->hasMany(DetailService::class);
         return $this->hasMany(GroupService::class);
+    }
+    public function detServices(){
+        return $this->hasMany(DetService::class);
     }
     /**
      * The attributes that should be hidden for serialization.

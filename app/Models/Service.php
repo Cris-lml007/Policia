@@ -20,7 +20,7 @@ class Service extends Model
         return $this->hasMany(GroupService::class);
     }
 
-    public function detailService(){
-        return $this->hasMany(DetailService::class);
+    public function detService(){
+        return $this->hasMany(DetService::class);
     }
 }

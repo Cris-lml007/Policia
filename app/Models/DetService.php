@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DetailService extends Model
+class DetService extends Model
 {
     use HasFactory;
     public $fillable = [
