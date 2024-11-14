@@ -21,4 +21,7 @@ class DashboardController extends Controller
     public function serviceAdmin(){
         return view('service-admin');
     }
+    public function serviceSupervisor(){
+        return view('service-supervisor');
+    }
 }
