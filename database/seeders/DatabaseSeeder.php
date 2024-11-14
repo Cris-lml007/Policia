@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\Role;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -26,7 +27,16 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'username' => 'admin',
             'cellular' => 1,
-            'role' => 0,
+            'role' => Role::ADMIN,
+            'password' => '12345678'
+        ]);
+        User::create([
+            'ci' => 2,
+            'surname' => 'supervisor',
+            'name' => 'supervisor',
+            'username' => 'supervisor',
+            'cellular' => 1,
+            'role' => Role::SUPERVISOR,
             'password' => '12345678'
         ]);
     }

@@ -2,17 +2,17 @@
 
 
 @section('content')
-<link rel="stylesheet" href="{{asset('css/style.css')}}">
-<title>Gestión de unidades</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <title>Gestión de unidades</title>
     <div class="general fondo">
         <div class="container label">
             <h2 class="form_titulo subtitulo">Servicio policial</h2>
-            <div class="end">
-                <button class="button inline_button">
-                    Sincronizar servicio
-                    <span class="fas fa-sync"></span>
-                </button>
-            </div>
+            {{-- <div class="end"> --}}
+            {{--     <button class="button inline_button"> --}}
+            {{--         Sincronizar servicio --}}
+            {{--         <span class="fas fa-sync"></span> --}}
+            {{--     </button> --}}
+            {{-- </div> --}}
             <ul class="list-group" style="margin-bottom: 1em">
                 <li class="list-group-item">
                     <b>Nombre servicio:</b> GV SAN JOSE Vs. THE STRONGEST
@@ -21,12 +21,15 @@
                     <b>Fecha de operación:</b> 16/12/2024
                 </li>
                 <li class="list-group-item">
-                    <b>Cantidad grupos: </b> 4 
+                    <b>Cantidad grupos: </b> 4
                 </li>
                 <li class="list-group-item">
-                    <b>Cantidad efectivos: </b> 16 
+                    <b>Cantidad efectivos: </b> 16
                 </li>
-              </ul>
+                <li class="list-group-item">
+                    <b>Grupo Designado: </b> Grupo 1
+                </li>
+            </ul>
             <p class="label subtitulo">GRUPO 1</p>
             <table>
                 <thead class="table_header">
@@ -165,3 +168,4 @@
         </div>
     </div>
 @endsection
+

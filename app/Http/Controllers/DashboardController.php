@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Enums\Role;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class DashboardController extends Controller
 {
     public function staff(){
+        if(!Gate::allows('admin'))
+            return redirect(route('dashboard.home'));
         return view('staff');
     }
     public function users(){
@@ -16,12 +20,22 @@ class DashboardController extends Controller
         return view('unidades');
     }
     public function home(){
-        return view('home');
+        if(Gate::allows('admin'))
+            return view('home');
+        else if(Gate::allows('supervisor'))
+            return view('service-supervisor');
+        else abort(404);
     }
-    public function serviceAdmin(){
-        return view('service-admin');
+    public function service(){
+        if(!Auth::check()) return abort(404);
+        if(Auth::user()->role == Role::ADMIN)
+            return view('service-admin');
+        else if(Auth::user()->role == Role::SUPERVISOR)
+            return view('service-supervisor');
+        return abort(404);
     }
-    public function serviceSupervisor(){
-        return view('service-supervisor');
+
+    public function attendance(){
+        return view('attendance');
     }
 }

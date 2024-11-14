@@ -65,7 +65,7 @@ class StaffForm extends Component
 
     public function update(){
         $this->validate();
-        return dd('hoa');
+        // return dd('hoa');
         $this->person->password = $this->password;
         $this->person->save();
         $this->dispatch('update');

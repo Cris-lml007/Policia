@@ -22,9 +22,10 @@ class StaffTable extends Component
                 ->orWhere('name','like','%'.$this->search.'%')
                 ->orWhere('range','like','%'.$this->search.'%')
                 ->orWhere('cellular','like','%'.$this->search.'%')
+                ->where('role','!=',0)
                 ->paginate(10);
         }else{
-            $persons = User::paginate(10);
+            $persons = User::where('role','!=',0)->paginate(10);
         }
         return view('livewire.staff-table',compact(['persons']));
     }
