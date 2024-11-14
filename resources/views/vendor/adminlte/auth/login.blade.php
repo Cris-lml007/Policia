@@ -32,12 +32,12 @@
         <div class="form_cont">
             {{-- Email field --}}
             <div class="form_dato">
-                <input type="email" name="email" class="form_input @error('email') is-invalid @enderror"
-                    value="{{ old('email') }}" placeholder="">
+                <input type="text" name="username" class="form_input @error('username') is-invalid @enderror"
+                    value="{{ old('username') }}" placeholder="">
 
                 <label for="nombre" class="form_label">Usuario:</label>
 
-                @error('email')
+                @error('username')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
