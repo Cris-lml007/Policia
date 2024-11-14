@@ -61,7 +61,7 @@ $dataPoints = array(
 
             </div>
 
-            <div class="container" style="max-width: 80%">
+            <div class="container d-none" style="max-width: 80%">
                 <h2 class="form_titulo subtitulo"> Próximas operaciones </h2>
 
                 <table>

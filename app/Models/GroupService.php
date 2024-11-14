@@ -21,8 +21,13 @@ class GroupService extends Model
     }
 
     public function detailService(){
-        return $this->hasOne(DetailService::class);
+        return $this->hasMany(DetailService::class);
     }
+
+    public function supervisor(){
+        return $this->belongsTo(User::class);
+    }
+
     public function users(){
         return $this->hasMany(User::class);
     }
