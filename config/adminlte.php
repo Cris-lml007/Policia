@@ -311,29 +311,33 @@ return [
             'text' => 'search',
         ],
         [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
-        [
             'text' => 'Principal',
             'route' => 'dashboard.home',
             'icon' => 'fa fa-home',
+            'can' => ['admin']
         ],
         [
             'text' => 'Gestión de Personal',
             'route' => 'dashboard.staff',
             'icon' => 'fa fa-users',
+            'can' => ['admin']
         ],
         [
             'text' => 'Lista de servicios',
             'route' => 'dashboard.service-admin',
             'icon' => 'fa fa-clipboard-list',
+            'can' => ['admin']
         ],
         [
             'text' => 'Servicio policial',
             'route' => 'dashboard.service-supervisor',
             'icon' => 'fa fa-table',
+            'can' => ['supervisor']
+        ],
+        [
+            'text' => 'Control de Personal',
+            'url' => '#',
+            'icon' => 'fa fa-file-invoice'
         ]
     ],
 
