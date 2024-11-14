@@ -16,8 +16,8 @@ return new class extends Migration
             $table->integer('ci');
             $table->string('surname');
             $table->string('name');
-            $table->string('range');
-            $table->integer('cellular');
+            $table->string('range')->nullable();
+            $table->integer('cellular')->nullable();
             $table->string('username')->unique();
             $table->string('password');
             $table->integer('role')->default(1);
