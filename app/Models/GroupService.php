@@ -9,9 +9,11 @@ class GroupService extends Model
 {
     use HasFactory;
     public $fillable = [
-        'group_service_id',
-        'user_id',
         'service_id',
+        'supervisor_id',
+        'lat',
+        'long',
+        'user_id'
     ];
 
     public function service(){
