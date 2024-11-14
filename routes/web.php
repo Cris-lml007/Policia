@@ -5,18 +5,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('login'));
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('/dashboard')->controller(DashboardController::class)->group(function(){
+Route::prefix('/dashboard')->middleware('auth')->controller(DashboardController::class)->group(function(){
     Route::get('staff','staff')->name('dashboard.staff');
     Route::get('users','users')->name('dashboard.users');
-    Route::get('home','home')->name('dashboard.home');
-    Route::get('service-admin','serviceAdmin')->name('dashboard.service-admin');
-    Route::get('service-supervisor','serviceSupervisor')->name('dashboard.service-supervisor');
+    Route::get('','home')->name('dashboard.home');
+    Route::get('service','service')->name('dashboard.service');
+    Route::get('/attendance','attendance')->name('dashboard.attendace');
 });
 

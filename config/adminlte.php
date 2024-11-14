@@ -257,7 +257,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'dashboard',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -324,19 +324,19 @@ return [
         ],
         [
             'text' => 'Lista de servicios',
-            'route' => 'dashboard.service-admin',
+            'route' => 'dashboard.service',
             'icon' => 'fa fa-clipboard-list',
             'can' => ['admin']
         ],
         [
             'text' => 'Servicio policial',
-            'route' => 'dashboard.service-supervisor',
+            'route' => 'dashboard.service',
             'icon' => 'fa fa-table',
             'can' => ['supervisor']
         ],
         [
             'text' => 'Control de Personal',
-            'url' => '#',
+            'route' => 'dashboard.attendace',
             'icon' => 'fa fa-file-invoice'
         ]
     ],

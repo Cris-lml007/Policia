@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             'password' => '12345678'
         ]);
         User::create([
-            'ci' => 1,
+            'ci' => 2,
             'surname' => 'supervisor',
             'name' => 'supervisor',
             'username' => 'supervisor',
