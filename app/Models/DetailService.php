@@ -10,8 +10,8 @@ class DetailService extends Model
     use HasFactory;
     public $fillable = [
         'group_service_id',
-        'user_id',
-        'service_id'
+        'service_id',
+        'user_id'
     ];
 
     public function service(){
