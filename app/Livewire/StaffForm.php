@@ -14,14 +14,10 @@ class StaffForm extends Component
 {
 
     public $id;
-    #[Validate('required|integer')]
     public $ci;
-    #[Validate('required|regex:/^[A-Za-z\s]+$/')]
     public $surname;
-    #[Validate('required|regex:/^[A-Za-z\s]+$/')]
     public $name;
     public $position;
-    #[Validate('integer|min_digits:8|max_digits:8')]
     public $cellular;
     public $range;
     public $active;
@@ -43,6 +39,7 @@ class StaffForm extends Component
     }
 
     public function getPerson($ci){
+        $this->isSave = false;
         $p = User::where('ci',$ci)->first();
         $this->person = $p;
         $this->surname = $p->surname;
@@ -63,9 +60,8 @@ class StaffForm extends Component
     }
 
 
-    public function update(){
+    public function updatePassword(){
         $this->validate();
-        // return dd('hoa');
         $this->person->password = $this->password;
         $this->person->save();
         $this->dispatch('update');
@@ -77,6 +73,7 @@ class StaffForm extends Component
     }
 
     public function restart(){
+        $this->isSave = false;
         $this->resetValidation();
         $this->reset();
     }

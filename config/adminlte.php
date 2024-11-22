@@ -337,7 +337,8 @@ return [
         [
             'text' => 'Control de Personal',
             'route' => 'dashboard.attendace',
-            'icon' => 'fa fa-file-invoice'
+            'icon' => 'fa fa-file-invoice',
+            'can' => ['supervisor']
         ],
         [
             'text' => 'Generar reportes',
