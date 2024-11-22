@@ -7,7 +7,7 @@
     <div class="general fondo">
         <div class="container label">
             <h2 class="form_titulo subtitulo">Reportes de asistencia</h2>
-            <div class="start">
+            <div style="display: flex; justify-content: space-between;">
                 <select name="servicio" id="servicio" class="select" required="required">
                     <option value="2">PROCESION DE LA VIRGEN DEL SANTUARIO DEL SOCAVON</option>
                 </select>
