@@ -160,6 +160,18 @@ b{
     transition: transform .5s, color .3s;
 }
 
+.select{
+    width: 50%;
+    color: var(--segundo2);
+    background: none;
+    font-size: 1rem;
+    padding: .6em .3em;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid var(--segundo2);
+    font-family: 'Overpass', sans-serif;
+}
+
 .button {
     display: flex;
     overflow: hidden;
