@@ -38,4 +38,7 @@ class DashboardController extends Controller
     public function attendance(){
         return view('attendance');
     }
+    public function reports(){
+        return view('reports');
+    }
 }
