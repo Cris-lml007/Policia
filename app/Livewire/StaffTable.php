@@ -41,7 +41,7 @@ class StaffTable extends Component
                     $list [] = [
                         'ci' => $obj['ci'],
                         'username' => $obj['name'].$obj['ci'],
-                        'password' => '12345678',
+                        'password' => bcrypt('12345678'),
                         'surname' => $obj['surname'],
                         'name' => $obj['name'],
                         'cellular' => $obj['cellular'],
