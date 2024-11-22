@@ -339,6 +339,11 @@ return [
             'route' => 'dashboard.attendace',
             'icon' => 'fa fa-file-invoice',
             'can' => ['supervisor']
+        ],
+        [
+            'text' => 'Generar reportes',
+            'route' => 'dashboard.reports',
+            'icon' => 'fa fa-file-medical'
         ]
     ],
 
