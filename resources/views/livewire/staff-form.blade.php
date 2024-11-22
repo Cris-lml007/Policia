@@ -48,7 +48,9 @@
     </div>
     <div class="modal-footer px-0">
         <button wire:click="restart" class="btn-secondary btn" data-bs-dismiss="modal">Cerrar</button>
-        <button wire:click="update" class="btn-success btn"
-            @if (empty($password) or empty($password_confirmation)) disabled @endif>Guardar</button>
+        @if (!$isSave)
+            <button wire:click="updatePassword" class="btn-success btn"
+                @if (empty($password) or empty($password_confirmation)) disabled @endif>Guardar</button>
+        @endif
     </div>
 </div>

@@ -14,10 +14,10 @@
         </div>
         <table @update="$refresh">
             <thead class="table_header">
-                    <th>Grado</th>
-                    <th>Apellidos y Nombres</th>
-                    <th>Celular</th>
-                    <th></th>
+                <th>Grado</th>
+                <th>Apellidos y Nombres</th>
+                <th>Celular</th>
+                <th></th>
             </thead>
             <tbody>
                 @foreach ($persons ?? [] as $person)
@@ -66,4 +66,34 @@
             </div>
         </div>
     </div>
+
+    <x-modal id="modal" title="Control de Asistencia">
+        <div class="input-group">
+            <span class="input-group-text">Controles Realizados</span>
+            <input class="form-control" type="number" readonly>
+        </div>
+        <div class="mt-1 mb-1">
+            <button style="width: 100%;" class="btn btn-primary"><i class="fa fa-check"></i> Marca Asistencia</button>
+        </div>
+        <div class="mt-1 mb-1">
+            <button wire:click="qr" style="width: 100%;" class="btn btn-primary"><i class="fa fa-qrcode"></i>
+                QR</button>
+        </div>
+        @if ($isQr)
+            <livewire:qr-code />
+            <button wire:click="canceledQr" class="btn btn-danger">Cancelar QR</button>
+        @endif
+    </x-modal>
 </div>
+
+@script
+    <script>
+        Livewire.hook('morph.updated', (message, component) => {
+            const modalElement = document.getElementById('modal');
+            if (modalElement) {
+                $('#modal').modal('dispose');
+                $('#modal').modal('show');
+            }
+        });
+    </script>
+@endscript
