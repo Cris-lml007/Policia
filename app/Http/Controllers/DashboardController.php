@@ -24,7 +24,7 @@ class DashboardController extends Controller
             return view('home');
         else if(Gate::allows('supervisor'))
             return view('service-supervisor');
-        else abort(404);
+        else return view('qrscan');
     }
     public function service(){
         if(!Auth::check()) return abort(404);
