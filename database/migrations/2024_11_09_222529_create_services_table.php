@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('cod');
             $table->string('title');
             $table->dateTime('date');
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->double('lat');
             $table->double('long');
             $table->timestamps();

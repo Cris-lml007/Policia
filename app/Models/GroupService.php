@@ -13,7 +13,7 @@ class GroupService extends Model
         'supervisor_id',
         'lat',
         'long',
-        'user_id'
+        'user_ci'
     ];
 
     public function service(){

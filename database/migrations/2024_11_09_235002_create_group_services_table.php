@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('group_services', function (Blueprint $table) {
             $table->id();
             $table->integer('supervisor_id')->nullable();
-            $table->double('lat');
-            $table->double('long');
+            $table->double('lat')->nullable();
+            $table->double('long')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('service_id');
             $table->foreign('service_id')->references('id')->on('services');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('user_ci');
+            $table->foreign('user_ci')->references('ci')->on('users');
         });
     }
 

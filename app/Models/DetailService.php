@@ -11,7 +11,7 @@ class DetailService extends Model
     public $fillable = [
         'group_service_id',
         'service_id',
-        'user_id'
+        'user_ci'
     ];
 
     public function service(){

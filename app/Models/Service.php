@@ -9,6 +9,7 @@ class Service extends Model
 {
     use HasFactory;
     public $fillable = [
+        'cod',
         'title',
         'date',
         'status',
