@@ -16,7 +16,8 @@ Route::post('/service',function(Request $request){
         $service = Service::create([
             'cod' => $r['codigo'],
             'title' => $r['servicio'],
-            'date' => $r['fecha_inicio'],
+            'date_start' => $r['fecha_inicio'],
+            'date_end' => $r['fecha_fin'],
             'lat' => $r['latitud'],
             'long' => $r['longitud']
         ]);

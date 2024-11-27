@@ -20,8 +20,8 @@ class DetailService extends Model
     public function groupService(){
         return $this->hasOne(GroupService::class);
     }
-    public function users(){
-        return $this->hasMany(User::class);
+    public function user(){
+        return $this->belongsTo(User::class,'user_ci','ci');
     }
 
     public function attendances(){
