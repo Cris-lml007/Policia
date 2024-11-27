@@ -84,6 +84,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="card-footer" style="margin-top: 15px;">
+                {{$services->links()}}
+            </div>
         </div>
     </div>
 @endsection
