@@ -3,6 +3,15 @@
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
+
+Livewire::setScriptRoute(function($handle){
+    return Route::get(env('APP_URL') . '/livewire/livewire.js',$handle);
+});
+
+Livewire::setUpdateRoute(function($handle){
+    return Route::post('server/Farmacia/public/livewire/update',$handle);
+});
 
 Route::get('/', function () {
     return redirect(route('login'));
