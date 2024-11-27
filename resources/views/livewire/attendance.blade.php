@@ -20,49 +20,23 @@
                 <th></th>
             </thead>
             <tbody>
-                @foreach ($persons ?? [] as $person)
+                @foreach ($group ?? [] as $person)
                     <tr>
-                        <td>{{ $person->range ?? '---' }}</td>
-                        <td>{{ $person->surname . ' ' . $person->name }}</td>
-                        <td>{{ $person->cellular ?? '---' }}</td>
-                        <td><i @class([
-                            'fa',
-                            'fa-circle',
-                            'text-success',
-                            'text-danger' => !$person->active,
-                        ])></i></td>
+                        <td>{{ $person->user->range ?? '---' }}</td>
+                        <td>{{ $person->user->surname . ' ' . $person->user->name }}</td>
+                        <td>{{ $person->user->cellular ?? '---' }}</td>
                         <td>
-                            <button data-bs-toggle="modal" data-bs-target="#modalStaff"
-                                wire:click="getPerson({{ $person->ci }})" class="btn btn-success"><i
-                                    class="fa fa-eye"></i> Ver Datos</button>
+                            <button wire:click="getAttendance({{$person->user->id}})" class="btn btn-primary">
+                                <i class="fa fa-list"></i>
+                            </button>
                         </td>
                     </tr>
                 @endforeach
-                <tr>
-                    <td>sargento</td>
-                    <td>Paredes Garcia Marco</td>
-                    <td>999999999</td>
-                    <td>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal">
-                            <i class="fa fa-list"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>sargento</td>
-                    <td>Marzana Marzana Maria</td>
-                    <td>999999999</td>
-                    <td>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal">
-                            <i class="fa fa-list"></i>
-                        </button>
-                    </td>
-                </tr>
             </tbody>
         </table>
-        <div class="card-footer">
+        <div class="card-footer" style="margin-top: 15px;">
             <div class="d-flex justify-content-end">
-                {{-- {{$persons->links()}} --}}
+                {{ $group?->links() }}
             </div>
         </div>
     </div>
@@ -70,10 +44,10 @@
     <x-modal id="modal" title="Control de Asistencia">
         <div class="input-group">
             <span class="input-group-text">Controles Realizados</span>
-            <input class="form-control" type="number" readonly>
+            <input wire:model="attendance_quantity" class="form-control" type="number" readonly>
         </div>
         <div class="mt-1 mb-1">
-            <button style="width: 100%;" class="btn btn-primary"><i class="fa fa-check"></i> Marca Asistencia</button>
+            <button wire:click="manualAttendance" style="width: 100%;" class="btn btn-primary"><i class="fa fa-check"></i> Marca Asistencia</button>
         </div>
         <div class="mt-1 mb-1">
             <button wire:click="qr" style="width: 100%;" class="btn btn-primary"><i class="fa fa-qrcode"></i>
@@ -88,12 +62,12 @@
 
 @script
     <script>
-        Livewire.hook('morph.updated', (message, component) => {
-            const modalElement = document.getElementById('modal');
-            if (modalElement) {
+        const modalElement = document.getElementById('modal');
+        if (modalElement) {
+            Livewire.on('openModal', (event) => {
                 $('#modal').modal('dispose');
                 $('#modal').modal('show');
-            }
-        });
+            });
+        }
     </script>
 @endscript

@@ -36,7 +36,7 @@ class User extends Authenticatable
     }
 
     public function DetailService(){
-        return $this->hasMany(DetailService::class);
+        return $this->hasMany(DetailService::class,'user_ci','ci');
     }
 
 

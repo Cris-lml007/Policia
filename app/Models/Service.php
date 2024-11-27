@@ -11,7 +11,8 @@ class Service extends Model
     public $fillable = [
         'cod',
         'title',
-        'date',
+        'date_start',
+        'date_end',
         'status',
         'lat',
         'long'

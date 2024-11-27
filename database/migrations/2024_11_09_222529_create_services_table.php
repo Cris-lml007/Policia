@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('cod');
             $table->string('title');
-            $table->dateTime('date');
+            $table->dateTime('date_start');
+            $table->dateTime('date_end');
             $table->integer('status')->default(0);
             $table->double('lat');
             $table->double('long');
