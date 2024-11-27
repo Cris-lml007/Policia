@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Enums\Role;
 use App\Models\Service;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -21,6 +23,15 @@ class DashboardController extends Controller
         return view('unidades');
     }
     public function home(){
+        if (Service::where('date_start','<=',Carbon::now())
+            ->where('date_end','>=',Carbon::now())
+            ->whereHas('groupService',function($query){$query->where('user_ci',Auth::user()->ci);})
+            ->exists()
+            ){
+                $u = User::find(Auth::user()->id);
+                $u->role = Role::SUPERVISOR;
+                $u->save();
+            }
         if(Gate::allows('admin'))
             return view('home');
         else if(Gate::allows('supervisor'))

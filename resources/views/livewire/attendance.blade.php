@@ -3,9 +3,9 @@
         <a class="btn btn-success"><i class="fa fa-globe"></i> Tomar Posicionamiento GPS</a>
     </div>
     <div class="container label" style="max-width: 95%;">
+        <h5 class="form_titulo subtitulo">Control de Personal</h5>
         <div class="d-flex justify-content-between">
-            <h5 class="form_titulo subtitulo">Control de Personal</h5>
-            <div class="input-group" style="width: 40%;padding-top: 22px;margin-bottom: 25px;">
+            <div class="input-group" style="width: 100%;padding-top: 22px;margin-bottom: 25px;">
                 <input wire:model.lazy="search" type="text" class="form-control" placeholder="Buscar">
                 <button class="btn btn-primary">
                     <i class="fa fa-search"></i>

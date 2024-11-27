@@ -50,13 +50,13 @@ class Attendance extends Component
         if(empty($this->search)){
             $group = GroupService::where('user_ci',Auth::user()->ci)->whereHas('service',function($query){
                 $query->where('date_start','<=',Carbon::now())->where('date_end','>=',Carbon::now());
-            })->first()?->detailService()->paginate(1);
+            })->first()?->detailService()->paginate();
         }else{
             $group = GroupService::where('user_ci',Auth::user()->ci)->whereHas('service',function($query){
                 $query->where('date_start','<=',Carbon::now())->where('date_end','>=',Carbon::now());
             })->whereHas('users',function($query){
                 $query->where('surname','like','%'.$this->search.'%')->orWhere('name','like','%'.$this->search.'%');
-            })->first()?->detailService()->paginate(1);
+            })->first()?->detailService()->paginate();
         }
         if(!empty($group) or $group!=null){
             $this->group_id = $group[0]->group_service_id;
