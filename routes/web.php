@@ -10,7 +10,7 @@ Livewire::setScriptRoute(function($handle){
 });
 
 Livewire::setUpdateRoute(function($handle){
-    return Route::post('server/Farmacia/public/livewire/update',$handle);
+    return Route::post(env('APP_URL').'/livewire/update',$handle);
 });
 
 Route::get('/', function () {
