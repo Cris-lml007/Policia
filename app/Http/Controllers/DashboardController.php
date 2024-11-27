@@ -31,6 +31,10 @@ class DashboardController extends Controller
                 $u = User::find(Auth::user()->id);
                 $u->role = Role::SUPERVISOR;
                 $u->save();
+            }else{
+                $u = User::find(Auth::user()->id);
+                $u->role = Role::STAFF;
+                $u->save();
             }
         if(Gate::allows('admin'))
             return view('home');
