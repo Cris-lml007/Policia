@@ -23,7 +23,8 @@ class DashboardController extends Controller
         return view('unidades');
     }
     public function home(){
-        if (Service::where('date_start','<=',Carbon::now())
+        if (Auth::user()->role == Role::ADMIN) break;
+        else if (Service::where('date_start','<=',Carbon::now())
             ->where('date_end','>=',Carbon::now())
             ->whereHas('groupService',function($query){$query->where('user_ci',Auth::user()->ci);})
             ->exists()
