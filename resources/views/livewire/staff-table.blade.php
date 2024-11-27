@@ -42,10 +42,16 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="card-footer">
+        <div class="card-footer" style="margin-top: 15px;">
             <div class="d-flex justify-content-end">
-                {{-- {{$persons->links()}} --}}
+                {{$persons->links()}}
             </div>
         </div>
     </div>
 </div>
+
+@script
+<script>
+
+</script>
+@endscript
