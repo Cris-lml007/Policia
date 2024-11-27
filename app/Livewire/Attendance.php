@@ -54,12 +54,12 @@ class Attendance extends Component
         }else{
             $group = GroupService::where('user_ci',Auth::user()->ci)->whereHas('service',function($query){
                 $query->where('date_start','<=',Carbon::now())->where('date_end','>=',Carbon::now());
-            })->whereHas('users',function($query){
+            })->first()?->detailService()->whereHas('user',function($query){
                 $query->where('surname','like','%'.$this->search.'%')->orWhere('name','like','%'.$this->search.'%');
-            })->first()?->detailService()->paginate();
+            })?->paginate();
         }
         if(!empty($group) or $group!=null){
-            $this->group_id = $group[0]->group_service_id;
+            $this->group_id = $group[0]->group_service_id ?? 0;
         }
         return view('livewire.attendance',compact(['group']));
     }
