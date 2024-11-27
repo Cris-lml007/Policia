@@ -25,7 +25,7 @@ class GroupService extends Model
     }
 
     public function supervisor(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_ci','ci');
     }
 
     public function users(){

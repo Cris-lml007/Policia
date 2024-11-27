@@ -1,5 +1,8 @@
 @extends('adminlte::page')
 
+@php
+    use Carbon\Carbon;
+@endphp
 
 @section('content')
 <link rel="stylesheet" href="{{asset('css/style.css')}}">
@@ -13,7 +16,7 @@
                     <span class="fas fa-sync"></span>
                 </button>
             </div>
-            
+
             <table id="parent">
                 <thead class="table_header">
                     <th>Servicio</th>
@@ -21,134 +24,65 @@
                     <th>Fecha de operación</th>
                     <th></th>
                 </thead>
-                <tr>
-                    <td>GV SAN JOSE Vs. THE STRONGEST</td>
-                    <td>Programado</td>
-                    <td>16/12/2024</td>
-                    <td>
-                        <button class="button inline_button" data-toggle="collapse" data-parent="#parent" href="#details1">
-                            Detalles
-                            <span class="fas fa-eye button_span"></span>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4" >
-                        <div class="cont panel-collapse collapse in" data-parent="#parent" id="details1">
-                            <p class="label">
-                                <b>Cantidad grupos: </b> 4 &emsp;&emsp;
-                                <b>Cantidad efectivos: </b> 16
-                            </p>
-                            <p class="label subtitulo">Personal asignado a la operación:<br></p>
-                            <table>
-                                <thead class="table_header color_header">
-                                    <th>Rango</th>
-                                    <th>Apellido Paterno</th>
-                                    <th>Apellido Materno</th>
-                                    <th>Nombres</th>
-                                    <th>Celular</th>
-                                    <th>Cargo</th>
-                                </thead>
-                                <tr>
-                                    <td>Sargento 1°</td>
-                                    <td>Magne</td>
-                                    <td>Choque</td>
-                                    <td>Aldo</td>
-                                    <td>73847278</td>
-                                    <td>Supervisor</td>
-                                </tr>
-                                <tr>
-                                    <td>Sargento</td>
-                                    <td>Lopez</td>
-                                    <td>Lopez</td>
-                                    <td>José Ignacio</td>
-                                    <td>71853397</td>
-                                    <td>Efectivo</td>
-                                </tr>
-                                <tr>
-                                    <td>Sargento</td>
-                                    <td>Velasquez</td>
-                                    <td>Condori</td>
-                                    <td>Victor Manuel</td>
-                                    <td>73973335</td>
-                                    <td>Efectivo</td>
-                                </tr>
-                                <tr>
-                                    <td>Sargento</td>
-                                    <td>Quispe</td>
-                                    <td>Llanque</td>
-                                    <td>Angel</td>
-                                    <td>68335663</td>
-                                    <td>Efectivo</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>PROCESION DE LA VIRGEN DEL SANTUARIO DEL SOCAVON</td>
-                    <td>Programado</td>
-                    <td>02/02/2025</td>
-                    <td>
-                        <button class="button inline_button" data-toggle="collapse" data-parent="#parent" href="#details2">
-                            Detalles
-                            <span class="fas fa-eye button_span"></span>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4" >
-                        <div class="cont panel-collapse collapse in" data-parent="#parent" id="details2">
-                            <p class="label">
-                                <b>Cantidad grupos: </b> 1 &emsp;&emsp;
-                                <b>Cantidad efectivos: </b> 4
-                            </p>
-                            <p class="label subtitulo">Personal asignado a la operación:<br></p>
-                            <table>
-                                <thead class="table_header color_header">
-                                    <th>Rango</th>
-                                    <th>Apellido Paterno</th>
-                                    <th>Apellido Materno</th>
-                                    <th>Nombres</th>
-                                    <th>Celular</th>
-                                    <th>Cargo</th>
-                                </thead>
-                                <tr>
-                                    <td>Sargento 1°</td>
-                                    <td>Magne</td>
-                                    <td>Choque</td>
-                                    <td>Aldo</td>
-                                    <td>73847278</td>
-                                    <td>Supervisor</td>
-                                </tr>
-                                <tr>
-                                    <td>Sargento</td>
-                                    <td>Lopez</td>
-                                    <td>Lopez</td>
-                                    <td>José Ignacio</td>
-                                    <td>71853397</td>
-                                    <td>Efectivo</td>
-                                </tr>
-                                <tr>
-                                    <td>Sargento</td>
-                                    <td>Velasquez</td>
-                                    <td>Condori</td>
-                                    <td>Victor Manuel</td>
-                                    <td>73973335</td>
-                                    <td>Efectivo</td>
-                                </tr>
-                                <tr>
-                                    <td>Sargento</td>
-                                    <td>Quispe</td>
-                                    <td>Llanque</td>
-                                    <td>Angel</td>
-                                    <td>68335663</td>
-                                    <td>Efectivo</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </td>
-                </tr>
+                <tbody>
+                    @foreach ($services ?? [] as $key => $service)
+                    <tr>
+                        <td>{{$service->title}}</td>
+                        <td>{{(Carbon::now() < Carbon::parse($service->date_start) ? 'Programado' :
+                        (Carbon::now() >= Carbon::parse($service->date_start) && Carbon::now() <= Carbon::parse($service->date_end) ? 'En Progreso' : 'Finalizado'))}}</td>
+                        <td>{{$service->date_start . ' - ' . $service->date_end}}</td>
+                        <td>
+                            <button class="button inline_button" data-toggle="collapse" data-parent="#parent" href="#details{{$key}}">
+                                Detalles
+                                <span class="fas fa-eye button_span"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" >
+                            <div class="cont panel-collapse collapse in" data-parent="#parent" id="details{{$key}}">
+                                <p class="label">
+                                <b>Cantidad grupos: </b> {{$service->groupService()->count()}} &emsp;&emsp;
+                                <b>Cantidad efectivos: </b> {{$service->detailService()->count() + $service->groupService()->count()}}
+                                </p>
+                                <p class="label subtitulo">Personal asignado a la operación:<br></p>
+                                <table>
+                                    <thead class="table_header color_header">
+                                        <th>Rango</th>
+                                        <th>Apellido Paterno</th>
+                                        <th>Apellido Materno</th>
+                                        <th>Nombres</th>
+                                        <th>Celular</th>
+                                        <th>Cargo</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($service->GroupService as $detail)
+                                        <tr>
+                                            <td>{{$detail->supervisor->range}}</td>
+                                            <td>{{explode(' ',$detail->supervisor->surname)[0]}}</td>
+                                            <td>{{explode(' ',$detail->supervisor->surname)[1]}}</td>
+                                            <td>{{$detail->supervisor->name}}</td>
+                                            <td>{{$detail->supervisor->cellular}}</td>
+                                            <td>Supervisor</td>
+                                        </tr>
+                                        @endforeach
+                                        @foreach ($service->detailService as $detail)
+                                        <tr>
+                                            <td>{{$detail->user->range}}</td>
+                                            <td>{{explode(' ',$detail->user->surname)[0]}}</td>
+                                            <td>{{explode(' ',$detail->user->surname)[1]}}</td>
+                                            <td>{{$detail->user->name}}</td>
+                                            <td>{{$detail->user->cellular}}</td>
+                                            <td>Personal</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
             </table>
         </div>
     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Role;
+use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -28,9 +29,10 @@ class DashboardController extends Controller
     }
     public function service(){
         if(!Auth::check()) return abort(404);
-        if(Auth::user()->role == Role::ADMIN)
-            return view('service-admin');
-        else if(Auth::user()->role == Role::SUPERVISOR)
+        if(Auth::user()->role == Role::ADMIN){
+            $services = Service::orderBy('date_start')->paginate();
+            return view('service-admin',compact(['services']));
+        }else if(Auth::user()->role == Role::SUPERVISOR)
             return view('service-supervisor');
         return abort(404);
     }
