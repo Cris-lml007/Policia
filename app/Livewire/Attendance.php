@@ -7,6 +7,7 @@ use App\Models\DetailService;
 use App\Models\GroupService;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -47,11 +48,11 @@ class Attendance extends Component
     public function render()
     {
         if(empty($this->search)){
-            $group = GroupService::where('user_ci',7322343)->whereHas('service',function($query){
+            $group = GroupService::where('user_ci',Auth::user()->ci)->whereHas('service',function($query){
                 $query->where('date_start','<=',Carbon::now())->where('date_end','>=',Carbon::now());
             })->first()?->detailService()->paginate(1);
         }else{
-            $group = GroupService::where('user_ci',7322343)->whereHas('service',function($query){
+            $group = GroupService::where('user_ci',Auth::user()->ci)->whereHas('service',function($query){
                 $query->where('date_start','<=',Carbon::now())->where('date_end','>=',Carbon::now());
             })->whereHas('users',function($query){
                 $query->where('surname','like','%'.$this->search.'%')->orWhere('name','like','%'.$this->search.'%');
