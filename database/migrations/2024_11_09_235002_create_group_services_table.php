@@ -19,8 +19,6 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('service_id');
             $table->foreign('service_id')->references('id')->on('services');
-            $table->unsignedBigInteger('detail_service_id');
-            $table->foreign('detail_service_id')->references('id')->on('detail_services');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
         });

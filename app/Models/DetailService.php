@@ -23,4 +23,8 @@ class DetailService extends Model
     public function users(){
         return $this->hasMany(User::class);
     }
+
+    public function attendances(){
+        return $this->hasMany(Attendance::class);
+    }
 }

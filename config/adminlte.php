@@ -343,7 +343,8 @@ return [
         [
             'text' => 'Generar reportes',
             'route' => 'dashboard.reports',
-            'icon' => 'fa fa-file-medical'
+            'icon' => 'fa fa-file-medical',
+            'can' => ['supervisor','admin']
         ]
     ],
 
