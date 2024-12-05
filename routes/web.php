@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Livewire\Counter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
+Route::get('/counter', Counter::class);
 
 Livewire::setScriptRoute(function($handle){
     return Route::get(env('APP_URL') . '/livewire/livewire.js',$handle);
