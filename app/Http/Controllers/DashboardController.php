@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Role;
+use App\Models\GroupService;
 use App\Models\Service;
 use App\Models\User;
 use Carbon\Carbon;
@@ -54,7 +55,7 @@ class DashboardController extends Controller
         return abort(404);
     }
 
-    public function attendance(){
+    public function attendance(){        
         return view('attendance');
     }
     public function reports(){

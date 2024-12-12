@@ -26,7 +26,7 @@
                         <td>{{ $person->user->surname . ' ' . $person->user->name }}</td>
                         <td>{{ $person->user->cellular ?? '---' }}</td>
                         <td>
-                            <button wire:click="getAttendance({{$person->user->id}})" class="btn btn-primary">
+                            <button wire:click="getAttendance({{ $person->user->id }})" class="btn btn-primary">
                                 <i class="fa fa-list"></i>
                             </button>
                         </td>
@@ -47,7 +47,8 @@
             <input wire:model="attendance_quantity" class="form-control" type="number" readonly>
         </div>
         <div class="mt-1 mb-1">
-            <button wire:click="manualAttendance" style="width: 100%;" class="btn btn-primary"><i class="fa fa-check"></i> Marca Asistencia</button>
+            <button wire:click="manualAttendance" style="width: 100%;" class="btn btn-primary"><i
+                    class="fa fa-check"></i> Marca Asistencia</button>
         </div>
         <div class="mt-1 mb-1">
             <button wire:click="qr" style="width: 100%;" class="btn btn-primary"><i class="fa fa-qrcode"></i>
