@@ -310,12 +310,12 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
-        [
-            'text' => 'Principal',
-            'route' => 'dashboard.home',
-            'icon' => 'fa fa-home',
-            'can' => ['admin']
-        ],
+        // [
+        //     'text' => 'Principal',
+        //     'route' => 'dashboard.home',
+        //     'icon' => 'fa fa-home',
+        //     'can' => ['admin']
+        // ],
         [
             'text' => 'Gestión de Personal',
             'route' => 'dashboard.staff',

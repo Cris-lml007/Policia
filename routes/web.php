@@ -29,5 +29,6 @@ Route::prefix('/dashboard')->middleware('auth')->controller(DashboardController:
     Route::get('service','service')->name('dashboard.service');
     Route::get('/attendance','attendance')->name('dashboard.attendace');
     Route::get('reports','reports')->name('dashboard.reports');
+    Route::get('/service/{service}','getService')->name('dashboard.getService');
 });
 
