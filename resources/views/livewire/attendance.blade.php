@@ -1,6 +1,6 @@
 <div>
     <div class="d-flex justify-content-end" style="margin-right: 30px;">
-        <a class="btn btn-success"><i class="fa fa-globe"></i> Tomar Posicionamiento GPS</a>
+        <a onclick="alert('No se encontro Dispositivos')" class="btn btn-success"><i class="fa fa-globe"></i> Tomar Posicionamiento GPS</a>
     </div>
     <div class="container label" style="max-width: 95%;">
         <h5 class="form_titulo subtitulo">Control de Personal</h5>

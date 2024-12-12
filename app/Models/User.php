@@ -35,7 +35,7 @@ class User extends Authenticatable
         return $this->hasMany(GroupService::class);
     }
 
-    public function DetailService(){
+    public function detailService(){
         return $this->hasMany(DetailService::class,'user_ci','ci');
     }
 
