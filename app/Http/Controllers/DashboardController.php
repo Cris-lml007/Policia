@@ -50,12 +50,16 @@ class DashboardController extends Controller
         if(Auth::user()->role == Role::ADMIN){
             $services = Service::orderBy('date_start')->paginate();
             return view('service-admin',compact(['services']));
-        }else if(Auth::user()->role == Role::SUPERVISOR)
-            return view('service-supervisor');
+        }else if(Auth::user()->role == Role::SUPERVISOR){
+            $service = GroupService::where('user_ci',Auth::user()->ci)->whereHas('service',function($query){
+                $query->where('date_start','<=',Carbon::now())->where('date_end','>=',Carbon::now());
+            })->first();
+            return view('service-supervisor',compact(['service']));
+        }
         return abort(404);
     }
 
-    public function attendance(){        
+    public function attendance(){
         return view('attendance');
     }
     public function reports(){

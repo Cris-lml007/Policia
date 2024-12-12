@@ -48,7 +48,7 @@ class ServiceForm extends Component
         $this->title = $this->service->title;
         $this->date_start = $this->service->date_start;
         $this->date_end = $this->service->date_end;
-        $this->geofences = Geofence::all()->toArray();
+        // $this->geofences = Geofence::all()->toArray();
     }
 
     public function render()

@@ -22,10 +22,10 @@ class Attendance extends Component
     public DetailService $user_detail;
 
     public function qr(){
-            session_start();
-        $_SESSION["id_mark"] = $this->user_mark;            
-            
-        
+        session_start();
+        $_SESSION["id_mark"] = $this->user_mark;
+
+
         $this->isQr = true;
         $this->dispatch('openModal');
     }
