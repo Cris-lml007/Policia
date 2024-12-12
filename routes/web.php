@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TokenController;
+use App\Livewire\Counter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
+Route::get('/counter', Counter::class);
 
 Livewire::setScriptRoute(function($handle){
     return Route::get(env('APP_URL') . '/livewire/livewire.js',$handle);
@@ -30,5 +32,6 @@ Route::prefix('/dashboard')->middleware('auth')->controller(DashboardController:
     Route::get('service','service')->name('dashboard.service');
     Route::get('/attendance','attendance')->name('dashboard.attendace');
     Route::get('reports','reports')->name('dashboard.reports');
+    Route::get('/service/{service}','getService')->name('dashboard.getService');
 });
 

@@ -61,4 +61,9 @@ class DashboardController extends Controller
     public function reports(){
         return view('reports');
     }
+
+    public function getService(Service $service){
+        // dd($service);
+        return view('service',compact(['service']));
+    }
 }
