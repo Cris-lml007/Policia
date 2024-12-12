@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TokenController;
 use App\Livewire\Counter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,8 @@ Livewire::setUpdateRoute(function($handle){
 Route::get('/', function () {
     return redirect(route('login'));
 });
+
+Route::post("dashboard/mark",[TokenController::class,"register"]);
 
 Auth::routes();
 
