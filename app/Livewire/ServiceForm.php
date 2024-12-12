@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Geofence;
+use App\Models\GroupService;
 use App\Models\Service;
 use Livewire\Component;
 
@@ -15,14 +16,25 @@ class ServiceForm extends Component
     public $date_start;
     public $date_end;
 
+    public $geofences = [];
+
+    public function getGeofences()
+    {
+        $this->geofences = Geofence::whereHas('groupService',function($query){
+            $query->where('service_id',$this->service->id);
+        })->get();
+        $this->dispatch('loadGeofences',$this->geofences);
+    }
 
     public function newGeofence($id,$geofence){
-        $q = $id;
-        // dd($id,$geofence);
-        // Geofence::create([
-        //     'group_service_id' => $id,
-        //     'points' => $geofence
-        //]);
+        Geofence::create([
+            'group_service_id' => $id,
+            'points' => json_encode(json_decode($geofence)[0])
+        ]);
+    }
+
+    public function destroyGeofence($id){
+        GroupService::find($id)->geofence()->delete();
     }
 
     public function mount($s){
@@ -31,6 +43,8 @@ class ServiceForm extends Component
         $this->title = $this->service->title;
         $this->date_start = $this->service->date_start;
         $this->date_end = $this->service->date_end;
+        $this->geofences = Geofence::all()->toArray();
+        // $this->dispatch('loadGeofences',$this->geofences);
     }
 
     public function render()

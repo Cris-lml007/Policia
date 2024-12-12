@@ -31,4 +31,8 @@ class GroupService extends Model
     public function users(){
         return $this->belongsToMany(User::class,'detail_services','group_service_id','user_ci','id','ci');
     }
+
+    public function geofence(){
+        return $this->hasOne(Geofence::class);
+    }
 }

@@ -21,7 +21,7 @@
             </div>
             <div wire:ignore id="map"></div>
             <div>
-                <table>
+                <table wire:ignore>
                     <thead class="table_header color_header">
                         <tr>
                             <th>Id Grupo</th>
@@ -34,7 +34,7 @@
                     <tbody>
                         @foreach ($service->groupService ?? [] as $item)
                             <tr data-group-id="{{ $item->id }}">
-                                <td>1</td>
+                                <td>{{ $item->id }}</td>
                                 <td>{{ $item->supervisor->surname . ' ' . $item->supervisor->name }}</td>
                                 <td id="geofence-status-{{ $item->id }}">Sin Definir</td>
                                 <td id="geofence-color-{{ $item->id }}">
@@ -114,14 +114,150 @@
 
 
 @script
+    {{-- <script> --}}
+    {{--     $wire.getGeofences(); --}}
+    {{-- --}}
+    {{--     document.addEventListener('livewire:initialized', () => { --}}
+    {{--         Livewire.on('loadGeofences', (geofencesData) => { --}}
+    {{--             if (geofencesData.length > 0) { --}}
+    {{--                 console.log("Geovallas cargadas:", geofencesData); --}}
+    {{-- --}}
+    {{--                 geofencesData[0].forEach(function(item) { --}}
+    {{--                     let geoData = JSON.parse(item['points']); --}}
+    {{--                     if (Array.isArray(geoData) && geoData.length > 0) { --}}
+    {{--                         let color = --}}
+    {{--                     getRandomColor(); --}}
+    {{--                         let polygonPoints = geoData.map(point => [point.lat, point.lng]); --}}
+    {{--                         let polygon = L.polygon(polygonPoints, { --}}
+    {{--                             color: color, --}}
+    {{--                             fillColor: color, --}}
+    {{--                             fillOpacity: 0.5, --}}
+    {{--                         }).addTo(map); --}}
+    {{--                         geofences.addLayer(polygon); --}}
+    {{--                     } else { --}}
+    {{--                         console.error("Formato inválido para los puntos de la geovalla:", --}}
+    {{--                             geoData); --}}
+    {{--                     } --}}
+    {{--                 }); --}}
+    {{--             } else { --}}
+    {{--                 console.log("No hay geovallas para cargar."); --}}
+    {{--             } --}}
+    {{--         }); --}}
+    {{-- --}}
+    {{-- --}}
+    {{--         // Manejar clics en "Definir" --}}
+    {{--         document.querySelectorAll('.define-geofence').forEach(function(button) { --}}
+    {{--             button.addEventListener('click', function() { --}}
+    {{--                 var groupId = this.dataset.groupId; --}}
+    {{--                 if (!geofenceColors[groupId]) { --}}
+    {{--                     geofenceColors[groupId] = getRandomColor(); --}}
+    {{--                 } --}}
+    {{--                 var color = geofenceColors[groupId]; --}}
+    {{--                 polygonDrawer.setOptions({ --}}
+    {{--                     shapeOptions: { --}}
+    {{--                         color: color, --}}
+    {{--                         fillColor: color, --}}
+    {{--                         fillOpacity: 0.5 --}}
+    {{--                     } --}}
+    {{--                 }); --}}
+    {{--                 polygonDrawer.enable(); --}}
+    {{--                 map.once('draw:created', function(event) { --}}
+    {{--                     var layer = event.layer; --}}
+    {{--                     layer.setStyle({ --}}
+    {{--                         color: color, // Usar el color único --}}
+    {{--                         fillColor: color, --}}
+    {{--                         fillOpacity: 0.5 --}}
+    {{--                     }); --}}
+    {{--                     geofences.addLayer(layer); --}}
+    {{--                     layer.groupId = groupId; // Asociar la geovalla al grupo --}}
+    {{--                     document.getElementById(`geofence-status-${groupId}`).textContent = --}}
+    {{--                         "Definida"; --}}
+    {{--                     var colorIcon = document.getElementById(`geofence-color-${groupId}`) --}}
+    {{--                         .querySelector('i'); --}}
+    {{--                     colorIcon.style.color = color; --}}
+    {{--                     document.querySelector( --}}
+    {{--                             `.delete-geofence[data-group-id="${groupId}"]`).style --}}
+    {{--                         .display = "inline"; --}}
+    {{-- --}}
+    {{--                     // Opcional: Enviar datos al servidor --}}
+    {{--                     let dat = saveGeofenceToServer(groupId, layer.getLatLngs()); --}}
+    {{--                     let coordinatesJson = JSON.stringify(dat[1]); --}}
+    {{--                     $wire.newGeofence(dat[0], coordinatesJson); --}}
+    {{--                 }); --}}
+    {{--             }); --}}
+    {{--         }); --}}
+    {{-- --}}
+    {{--         // Manejar clics en "Eliminar" --}}
+    {{--         document.querySelectorAll('.delete-geofence').forEach(function(button) { --}}
+    {{--             button.addEventListener('click', function() { --}}
+    {{--                 var groupId = this.dataset.groupId; --}}
+    {{-- --}}
+    {{--                 // Buscar y eliminar la geovalla del mapa --}}
+    {{--                 geofences.eachLayer(function(layer) { --}}
+    {{--                     if (layer.groupId == groupId) { --}}
+    {{--                         geofences.removeLayer(layer); --}}
+    {{--                     } --}}
+    {{--                 }); --}}
+    {{-- --}}
+    {{--                 // Actualizar la tabla --}}
+    {{--                 document.getElementById(`geofence-status-${groupId}`).textContent = --}}
+    {{--                     "Sin Definir"; --}}
+    {{--                 var colorIcon = document.getElementById(`geofence-color-${groupId}`) --}}
+    {{--                     .querySelector('i'); --}}
+    {{--                 colorIcon.style.color = "#FFFFFF"; --}}
+    {{--                 {{-- document.getElementById(`geofence-color-${groupId}`).textContent = "-"; --}} --}}
+    {{--                 this.style.display = "none"; --}}
+    {{-- --}}
+    {{--                 // Opcional: Notificar al servidor --}}
+    {{--                 deleteGeofenceFromServer(groupId); --}}
+    {{--             }); --}}
+    {{--         }); --}}
+    {{--     }) --}}
+    {{-- </script> --}}
     <script>
-        Livewire.hook('morph.updated', ({
-            el,
-            component
-        }) => {
-        })
-
+        $wire.getGeofences();
         document.addEventListener('livewire:initialized', () => {
+            Livewire.on('loadGeofences', (geofencesData) => {
+                if (geofencesData.length > 0) {
+                    console.log("Geovallas cargadas:", geofencesData);
+
+                    geofencesData[0].forEach(function(item) {
+                        let geoData = JSON.parse(item['points']);
+                        if (Array.isArray(geoData) && geoData.length > 0) {
+                            let groupId = item['group_service_id'];
+                            let color = geofenceColors[groupId] || getRandomColor();
+                            let polygonPoints = geoData.map(point => [point.lat, point.lng]);
+                            let polygon = L.polygon(polygonPoints, {
+                                color: color,
+                                fillColor: color,
+                                fillOpacity: 0.5,
+                            }).addTo(map);
+                            polygon.groupId = groupId;
+
+                            geofences.addLayer(polygon);
+
+                            // Vincular geofence-status y geofence-color al grupo
+                            document.getElementById(`geofence-status-${groupId}`).textContent =
+                                "Definida";
+                            console.log(document.getElementById(`geofence-status-${groupId}`)
+                                .textContent);
+                            var colorIcon = document.getElementById(`geofence-color-${groupId}`)
+                                .querySelector('i');
+                            colorIcon.style.color = color;
+                            document.querySelector(`.delete-geofence[data-group-id="${groupId}"]`)
+                                .style.display = "inline";
+                            document.querySelector(`.define-geofence[data-group-id="${groupId}"]`)
+                                .style.display = "none";
+                        } else {
+                            console.error("Formato inválido para los puntos de la geovalla:",
+                                geoData);
+                        }
+                    });
+                } else {
+                    console.log("No hay geovallas para cargar.");
+                }
+            });
+
             // Manejar clics en "Definir"
             document.querySelectorAll('.define-geofence').forEach(function(button) {
                 button.addEventListener('click', function() {
@@ -149,6 +285,9 @@
                         layer.groupId = groupId; // Asociar la geovalla al grupo
                         document.getElementById(`geofence-status-${groupId}`).textContent =
                             "Definida";
+                        document.querySelector(
+                                `.define-geofence[data-group-id="${groupId}"]`)
+                            .style.display = "none";
                         var colorIcon = document.getElementById(`geofence-color-${groupId}`)
                             .querySelector('i');
                         colorIcon.style.color = color;
@@ -182,14 +321,17 @@
                     var colorIcon = document.getElementById(`geofence-color-${groupId}`)
                         .querySelector('i');
                     colorIcon.style.color = "#FFFFFF";
-                    {{-- document.getElementById(`geofence-color-${groupId}`).textContent = "-"; --}}
-                    this.style.display = "none";
+                    document.querySelector(`.delete-geofence[data-group-id="${groupId}"]`).style
+                        .display = "none";
+                    document.querySelector(`.define-geofence[data-group-id="${groupId}"]`)
+                        .style.display = "inline";
 
                     // Opcional: Notificar al servidor
                     deleteGeofenceFromServer(groupId);
+                    $wire.destroyGeofence(groupId);
                 });
             });
-        })
+        });
     </script>
 @endscript
 

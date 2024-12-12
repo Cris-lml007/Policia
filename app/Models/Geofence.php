@@ -17,4 +17,5 @@ class Geofence extends Model
     public function groupService(){
         return $this->belongsTo(GroupService::class);
     }
+
 }
