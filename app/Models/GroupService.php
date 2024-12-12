@@ -21,7 +21,7 @@ class GroupService extends Model
     }
 
     public function detailService(){
-        return $this->hasMany(DetailService::class);
+        return $this->hasMany(DetailService::class,'group_service_id','id');
     }
 
     public function supervisor(){

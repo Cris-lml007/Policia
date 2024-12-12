@@ -1,3 +1,7 @@
+@php
+    use Carbon\Carbon;
+@endphp
+
 <div class="general fondo">
     <div style="width: 100%;margin-top: 10px;">
         <div class="container label" style="max-width: 95%;">
@@ -17,7 +21,8 @@
             </div>
             <div class="input-group">
                 <span class="input-group-text">Estado</span>
-                <input class="form-control" value="En Progreso">
+                <input readonly class="form-control" value="{{(Carbon::now() < Carbon::parse($service->date_start) ? 'Programado' :
+                        (Carbon::now() >= Carbon::parse($service->date_start) && Carbon::now() <= Carbon::parse($service->date_end) ? 'En Progreso' : 'Finalizado'))}}">
             </div>
             <div wire:ignore id="map"></div>
             <div>
@@ -41,6 +46,8 @@
                                     <i class="fa fa-circle" style="color: #cccccc;"></i>
                                 </td>
                                 <td>
+                                    <a wire:click="getGroup({{ $item->id }})" class="btn btn-secondary"
+                                        data-bs-toggle="modal" data-bs-target="#modal"><i class="fa fa-eye"></i></a>
                                     <a class="btn btn-success define-geofence"
                                         data-group-id="{{ $item->id }}">Definir</a>
                                     <a class="btn btn-danger delete-geofence" data-group-id="{{ $item->id }}"
@@ -53,6 +60,31 @@
             </div>
         </div>
     </div>
+
+    <x-modal id="modal" title="Lista de Personal Asignado" class="modal-xl">
+        <table>
+            <thead class="table_header color_header">
+                <tr>
+                    <th>CI</th>
+                    <th>Apellidos</th>
+                    <th>Nombres</th>
+                    <th>Grado</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($group ?? [] as $item)
+                    <tr>
+                        <td>{{ $item->user->ci }}</td>
+                        <td>{{$item->user->surname}}</td>
+                        <td>{{$item->user->name}}</td>
+                        <td>{{$item->user->range}}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </x-modal>
+
+
 </div>
 
 @section('js')
@@ -114,106 +146,6 @@
 
 
 @script
-    {{-- <script> --}}
-    {{--     $wire.getGeofences(); --}}
-    {{-- --}}
-    {{--     document.addEventListener('livewire:initialized', () => { --}}
-    {{--         Livewire.on('loadGeofences', (geofencesData) => { --}}
-    {{--             if (geofencesData.length > 0) { --}}
-    {{--                 console.log("Geovallas cargadas:", geofencesData); --}}
-    {{-- --}}
-    {{--                 geofencesData[0].forEach(function(item) { --}}
-    {{--                     let geoData = JSON.parse(item['points']); --}}
-    {{--                     if (Array.isArray(geoData) && geoData.length > 0) { --}}
-    {{--                         let color = --}}
-    {{--                     getRandomColor(); --}}
-    {{--                         let polygonPoints = geoData.map(point => [point.lat, point.lng]); --}}
-    {{--                         let polygon = L.polygon(polygonPoints, { --}}
-    {{--                             color: color, --}}
-    {{--                             fillColor: color, --}}
-    {{--                             fillOpacity: 0.5, --}}
-    {{--                         }).addTo(map); --}}
-    {{--                         geofences.addLayer(polygon); --}}
-    {{--                     } else { --}}
-    {{--                         console.error("Formato inválido para los puntos de la geovalla:", --}}
-    {{--                             geoData); --}}
-    {{--                     } --}}
-    {{--                 }); --}}
-    {{--             } else { --}}
-    {{--                 console.log("No hay geovallas para cargar."); --}}
-    {{--             } --}}
-    {{--         }); --}}
-    {{-- --}}
-    {{-- --}}
-    {{--         // Manejar clics en "Definir" --}}
-    {{--         document.querySelectorAll('.define-geofence').forEach(function(button) { --}}
-    {{--             button.addEventListener('click', function() { --}}
-    {{--                 var groupId = this.dataset.groupId; --}}
-    {{--                 if (!geofenceColors[groupId]) { --}}
-    {{--                     geofenceColors[groupId] = getRandomColor(); --}}
-    {{--                 } --}}
-    {{--                 var color = geofenceColors[groupId]; --}}
-    {{--                 polygonDrawer.setOptions({ --}}
-    {{--                     shapeOptions: { --}}
-    {{--                         color: color, --}}
-    {{--                         fillColor: color, --}}
-    {{--                         fillOpacity: 0.5 --}}
-    {{--                     } --}}
-    {{--                 }); --}}
-    {{--                 polygonDrawer.enable(); --}}
-    {{--                 map.once('draw:created', function(event) { --}}
-    {{--                     var layer = event.layer; --}}
-    {{--                     layer.setStyle({ --}}
-    {{--                         color: color, // Usar el color único --}}
-    {{--                         fillColor: color, --}}
-    {{--                         fillOpacity: 0.5 --}}
-    {{--                     }); --}}
-    {{--                     geofences.addLayer(layer); --}}
-    {{--                     layer.groupId = groupId; // Asociar la geovalla al grupo --}}
-    {{--                     document.getElementById(`geofence-status-${groupId}`).textContent = --}}
-    {{--                         "Definida"; --}}
-    {{--                     var colorIcon = document.getElementById(`geofence-color-${groupId}`) --}}
-    {{--                         .querySelector('i'); --}}
-    {{--                     colorIcon.style.color = color; --}}
-    {{--                     document.querySelector( --}}
-    {{--                             `.delete-geofence[data-group-id="${groupId}"]`).style --}}
-    {{--                         .display = "inline"; --}}
-    {{-- --}}
-    {{--                     // Opcional: Enviar datos al servidor --}}
-    {{--                     let dat = saveGeofenceToServer(groupId, layer.getLatLngs()); --}}
-    {{--                     let coordinatesJson = JSON.stringify(dat[1]); --}}
-    {{--                     $wire.newGeofence(dat[0], coordinatesJson); --}}
-    {{--                 }); --}}
-    {{--             }); --}}
-    {{--         }); --}}
-    {{-- --}}
-    {{--         // Manejar clics en "Eliminar" --}}
-    {{--         document.querySelectorAll('.delete-geofence').forEach(function(button) { --}}
-    {{--             button.addEventListener('click', function() { --}}
-    {{--                 var groupId = this.dataset.groupId; --}}
-    {{-- --}}
-    {{--                 // Buscar y eliminar la geovalla del mapa --}}
-    {{--                 geofences.eachLayer(function(layer) { --}}
-    {{--                     if (layer.groupId == groupId) { --}}
-    {{--                         geofences.removeLayer(layer); --}}
-    {{--                     } --}}
-    {{--                 }); --}}
-    {{-- --}}
-    {{--                 // Actualizar la tabla --}}
-    {{--                 document.getElementById(`geofence-status-${groupId}`).textContent = --}}
-    {{--                     "Sin Definir"; --}}
-    {{--                 var colorIcon = document.getElementById(`geofence-color-${groupId}`) --}}
-    {{--                     .querySelector('i'); --}}
-    {{--                 colorIcon.style.color = "#FFFFFF"; --}}
-    {{--                 {{-- document.getElementById(`geofence-color-${groupId}`).textContent = "-"; --}} --}}
-    {{--                 this.style.display = "none"; --}}
-    {{-- --}}
-    {{--                 // Opcional: Notificar al servidor --}}
-    {{--                 deleteGeofenceFromServer(groupId); --}}
-    {{--             }); --}}
-    {{--         }); --}}
-    {{--     }) --}}
-    {{-- </script> --}}
     <script>
         $wire.getGeofences();
         document.addEventListener('livewire:initialized', () => {

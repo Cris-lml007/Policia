@@ -17,6 +17,7 @@ class ServiceForm extends Component
     public $date_end;
 
     public $geofences = [];
+    public $group = [];
 
     public function getGeofences()
     {
@@ -37,6 +38,10 @@ class ServiceForm extends Component
         GroupService::find($id)->geofence()->delete();
     }
 
+    public function getGroup($id){
+        $this->group =  GroupService::find($id)->detailService;
+    }
+
     public function mount($s){
         $this->service = Service::find($s);
         $this->cod = $this->service->cod;
@@ -44,7 +49,6 @@ class ServiceForm extends Component
         $this->date_start = $this->service->date_start;
         $this->date_end = $this->service->date_end;
         $this->geofences = Geofence::all()->toArray();
-        // $this->dispatch('loadGeofences',$this->geofences);
     }
 
     public function render()
