@@ -21,8 +21,12 @@
             </div>
             <div class="input-group">
                 <span class="input-group-text">Estado</span>
-                <input readonly class="form-control" value="{{(Carbon::now() < Carbon::parse($service->date_start) ? 'Programado' :
-                        (Carbon::now() >= Carbon::parse($service->date_start) && Carbon::now() <= Carbon::parse($service->date_end) ? 'En Progreso' : 'Finalizado'))}}">
+                <input readonly class="form-control"
+                    value="{{ Carbon::now() < Carbon::parse($service->date_start)
+                        ? 'Programado'
+                        : (Carbon::now() >= Carbon::parse($service->date_start) && Carbon::now() <= Carbon::parse($service->date_end)
+                            ? 'En Progreso'
+                            : 'Finalizado') }}">
             </div>
             <div wire:ignore id="map"></div>
             <div>
@@ -46,8 +50,9 @@
                                     <i class="fa fa-circle" style="color: #cccccc;"></i>
                                 </td>
                                 <td>
-                                    <a wire:click="getGroup({{ $item->id }})" class="btn btn-secondary"
-                                        data-bs-toggle="modal" data-bs-target="#modal"><i class="fa fa-eye"></i></a>
+                                    <a wire:click="getGroup({{ $item->id }})" class="btn btn-secondary">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
                                     <a class="btn btn-success define-geofence"
                                         data-group-id="{{ $item->id }}">Definir</a>
                                     <a class="btn btn-danger delete-geofence" data-group-id="{{ $item->id }}"
@@ -75,9 +80,9 @@
                 @foreach ($group ?? [] as $item)
                     <tr>
                         <td>{{ $item->user->ci }}</td>
-                        <td>{{$item->user->surname}}</td>
-                        <td>{{$item->user->name}}</td>
-                        <td>{{$item->user->range}}</td>
+                        <td>{{ $item->user->surname }}</td>
+                        <td>{{ $item->user->name }}</td>
+                        <td>{{ $item->user->range }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -149,6 +154,13 @@
     <script>
         $wire.getGeofences();
         document.addEventListener('livewire:initialized', () => {
+
+            // abrir modal
+            Livewire.on('openModal', () => {
+                $('#modal').modal('show');
+            });
+
+
             Livewire.on('loadGeofences', (geofencesData) => {
                 if (geofencesData.length > 0) {
                     console.log("Geovallas cargadas:", geofencesData);

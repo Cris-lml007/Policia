@@ -40,6 +40,7 @@ class ServiceForm extends Component
 
     public function getGroup($id){
         $this->group =  GroupService::find($id)->detailService;
+        $this->dispatch('openModal');
     }
 
     public function mount($s){
