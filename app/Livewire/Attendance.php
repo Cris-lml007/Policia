@@ -18,14 +18,9 @@ class Attendance extends Component
     public $isQr = false;
     public $attendance_quantity = 0;
     public $group_id;
-    public $user_mark; //el que marcara asistencia
     public DetailService $user_detail;
 
     public function qr(){
-        session_start();
-        $_SESSION["id_mark"] = $this->user_mark;
-
-
         $this->isQr = true;
         $this->dispatch('openModal');
     }
@@ -36,7 +31,6 @@ class Attendance extends Component
     }
 
     public function getAttendance(User $user){
-        $this->user_mark = $user->ci;
         $this->user_detail = $user->DetailService()->where('group_service_id',$this->group_id)->first();
         $this->attendance_quantity = $this->user_detail->attendances()->count();
         $this->dispatch('openModal');

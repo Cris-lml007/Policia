@@ -55,8 +55,8 @@
                 QR</button>
         </div>
         @if ($isQr)
-            <livewire:qr-code />
-            <button wire:click="canceledQr" class="btn btn-danger">Cancelar QR</button>
+            <livewire:qr-code detail_service="{{ $user_detail->id }}" />
+            <button wire:click="canceledQr" class="btn btn-danger" style="width: 100%;">Cancelar QR</button>
         @endif
     </x-modal>
 </div>

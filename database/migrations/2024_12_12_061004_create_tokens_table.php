@@ -13,17 +13,10 @@ return new class extends Migration
     {
         Schema::create('tokens', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('detail_service_id');
+            $table->foreign('detail_service_id')->references('id')->on('detail_services');
             $table->string("token");
-            
-            $table->unsignedBigInteger("supervisor_id");
-            $table->foreign("supervisor_id")->references("ci")->on("users");
-
-            $table->unsignedBigInteger("agent_id");
-            $table->foreign("agent_id")->references("ci")->on("users");
-
-            $table->boolean("validation")->default(false);
-            $table->unsignedBigInteger("group_service_id");
-            $table->foreign("group_service_id")->references("id")->on("group_services");
+            $table->boolean("is_used")->default(false);
             $table->timestamps();
         });
     }
