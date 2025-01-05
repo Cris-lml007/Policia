@@ -27,6 +27,7 @@ class Attendance extends Component
 
     public function canceledQr(){
         $this->isQr = false;
+        $this->attendance_quantity = $this->user_detail->attendances()->count();
         $this->dispatch('openModal');
     }
 
