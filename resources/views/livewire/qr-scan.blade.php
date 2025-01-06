@@ -2,38 +2,41 @@
     <button id="onCamera" class="btn btn-primary"><i class="fa fa-camera"></i> Activar Camara</button>
     <div id="reader" width="500px" wire:ignore>
     </div>
+    <button id="disableCamera" class="btn btn-secondary d-none"><i class="fa fa-camera"></i> Desactivar Camara</button>
 </div>
 
 @script
     <script type="module">
         document.addEventListener('livewire:initialized', () => {
-            let html5QrcodeScanner = new window.Html5QrcodeScanner(
-                "reader", {
-                    fps: 10,
-                    qrbox: {
-                        width: 250,
-                        height: 250
-                    }
-                });
+
+            let html5QrCode = new window.Html5Qrcode("reader");
+            let config = {
+                fps: 10,
+                qrbox: {
+                    width: 250,
+                    height: 250
+                }
+            };
 
             function closeCamera() {
-                html5QrcodeScanner.clear();
+                html5QrCode.stop().then((ignore) => {}).catch((err) => {});
                 document.getElementById('onCamera').classList.remove('d-none');
+                document.getElementById('disableCamera').classList.add('d-none');
             }
 
             function onScanSuccess(decodedText, decodedResult) {
-                html5QrcodeScanner.clear();
-                Livewire.dispatch('Qr', {
-                    qr: decodedText
-                });
-            }
-
-            function onScanFailure(error) {
-                console.log("No se ha escaneado aún.");
+                html5QrCode.stop().then((ignore) => {
+                    Livewire.dispatch('Qr', {
+                        qr: decodedText
+                    });
+                }).catch((err) => {});
             }
 
             function activeCamera() {
-                html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+                document.getElementById('disableCamera').classList.remove('d-none');
+                html5QrCode.start({
+                    facingMode: "environment"
+                }, config, onScanSuccess);
             }
 
 
@@ -53,6 +56,9 @@
                 console.log("Cámara activada.");
                 btnCamera.classList.add('d-none');
                 activeCamera();
+            });
+            document.getElementById('disableCamera').addEventListener('click',()=>{
+                closeCamera();
             });
         });
     </script>
