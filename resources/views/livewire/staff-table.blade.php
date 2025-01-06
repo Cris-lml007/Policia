@@ -1,6 +1,6 @@
 <div>
     <div style="width: 100%;display: flex ;justify-content: end;padding-right: 40px;">
-        <button wire:click="syncStaff" class="btn btn-success">
+        <button id="sync" class="btn btn-success">
             <i class="fa fa-sync"></i>
             Sincronizar Personal
         </button>
@@ -34,9 +34,11 @@
                             'fa-circle',
                             'text-success',
                             'text-danger' => !$person->active,
-                            ])></i></td>
+                        ])></i></td>
                         <td>
-                            <button data-bs-toggle="modal" data-bs-target="#modalStaff" wire:click="getPerson({{ $person->ci }})" class="btn btn-success"><i class="fa fa-eye"></i> Ver Datos</button>
+                            <button data-bs-toggle="modal" data-bs-target="#modalStaff"
+                                wire:click="getPerson({{ $person->ci }})" class="btn btn-success"><i
+                                    class="fa fa-eye"></i> Ver Datos</button>
                         </td>
                     </tr>
                 @endforeach
@@ -44,8 +46,48 @@
         </table>
         <div class="card-footer" style="margin-top: 15px;">
             <div class="d-flex justify-content-end">
-                {{$persons->links()}}
+                {{ $persons->links() }}
             </div>
         </div>
     </div>
 </div>
+
+@script
+    <script>
+        let btnSync = document.getElementById('sync');
+        btnSync.addEventListener('click', () => {
+            let timerInterval;
+            let Swal = window.Swal;
+            Swal.fire({
+                title: "Sincronizando",
+                html: "por favor espera a que termine la sincronización",
+                timer: 0,
+                didOpen: () => {
+                    Swal.showLoading();
+                    timerInterval = setInterval(() => {
+                        if ($wire.message == 1) {
+                            Swal.close();
+                            Swal.fire({
+                                'title': 'Finalizado',
+                                'text': 'Sincronización completada exitosamente.',
+                                'icon': 'success'
+
+                            });
+                        } else if($wire.message == -1) {
+                            Swal.fire({
+                                'title': 'Hubo un Error',
+                                'text': 'No se pudo completar la sincronización.',
+                                'icon': 'error'
+
+                            });
+                        }
+                    }, 1000);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval);
+                }
+            });
+            $wire.dispatch('syncStaff');
+        });
+    </script>
+@endscript

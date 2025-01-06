@@ -12,8 +12,9 @@ use Livewire\WithPagination;
 class StaffTable extends Component
 {
 
+    public $message;
     public $search;
-    public $listeners = ['update'];
+    public $listeners = ['update','syncStaff'];
 
     use WithPagination;
     public function render()
@@ -35,7 +36,7 @@ class StaffTable extends Component
         $client = new Client();
         $ip =env('IP_SERVICE','localhost:8000');
         try{
-            $response = $client->get("http://$ip/server/simulador/public/api/staff");
+            $response = $client->get("http://$ip/server/auxi/public/api/staff");
             if($response->getStatusCode() == 200){
                 $json = json_decode($response->getBody(),true);
                 $list = [];
@@ -52,9 +53,10 @@ class StaffTable extends Component
                     ];
                 }
                 User::upsert($list,['ci','username'],['cellular','range']);
+                $this->message = 1;
             }
         }catch(Exception $error){
-            return dd($error);
+            $this->message = -1;
         }
     }
 
