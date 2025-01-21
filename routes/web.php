@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\TokenController;
+use App\Livewire\ActivateAccount;
 use App\Livewire\Counter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -20,9 +20,9 @@ Route::get('/', function () {
     return redirect(route('login'));
 });
 
-Route::post("dashboard/mark",[TokenController::class,"register"]);
-
 Auth::routes();
+
+Route::get('/activate',ActivateAccount::class)->middleware('auth')->name('activate');
 
 
 Route::prefix('/dashboard')->middleware('auth')->controller(DashboardController::class)->group(function(){
@@ -34,5 +34,6 @@ Route::prefix('/dashboard')->middleware('auth')->controller(DashboardController:
     Route::get('reports','reports')->name('dashboard.reports');
     Route::get('/service/{service}','getService')->name('dashboard.getService');
     Route::get('/reports/get','getReport')->name('dashboard.report');
+    Route::get('/token');
 });
 

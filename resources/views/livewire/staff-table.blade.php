@@ -50,6 +50,11 @@
             </div>
         </div>
     </div>
+    <div class="container-float">
+        <button style="border-radius: 50%;width: 60px;height: 60px;font-size: 25px;box-shadow: 0px 0px 5px black;" class="btn btn-primary">
+            <i class="fa fa-file"></i>
+        </button>
+    </div>
 </div>
 
 @script

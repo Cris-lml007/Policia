@@ -18,7 +18,7 @@ return new class extends Migration
             $table->double('long')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('service_id');
-            $table->foreign('service_id')->references('id')->on('services');
+            $table->foreign('service_id')->references('id')->on('services')->cascadeOnDelete();
             $table->unsignedBigInteger('user_ci');
             $table->foreign('user_ci')->references('ci')->on('users');
         });

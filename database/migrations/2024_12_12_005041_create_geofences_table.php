@@ -17,7 +17,7 @@ return new class extends Migration
             $table->json('points');
             $table->timestamps();
 
-            $table->foreign('group_service_id')->references('id')->on('group_services');
+            $table->foreign('group_service_id')->references('id')->on('group_services')->cascadeOnDelete();
         });
     }
 

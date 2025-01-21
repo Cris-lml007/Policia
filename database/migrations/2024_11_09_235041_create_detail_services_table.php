@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('service_id');
             $table->foreign('service_id')->references('id')->on('services');
             $table->unsignedBigInteger('group_service_id');
-            $table->foreign('group_service_id')->references('id')->on('group_services');
+            $table->foreign('group_service_id')->references('id')->on('group_services')->cascadeOnDelete();
             $table->unsignedBigInteger('user_ci');
             $table->foreign('user_ci')->references('ci')->on('users');
         });

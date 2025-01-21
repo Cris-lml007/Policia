@@ -8,4 +8,5 @@ enum Role:int
     CASE USER = 1;
     case SUPERVISOR = 2;
     case STAFF = 3;
+    case DISABLED = 4;
 }

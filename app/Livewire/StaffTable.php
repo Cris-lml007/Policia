@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Models\GroupService;
 use App\Models\User;
 use Exception;
 use GuzzleHttp\Client;
@@ -36,7 +35,7 @@ class StaffTable extends Component
         $client = new Client();
         $ip =env('IP_SERVICE','localhost:8000');
         try{
-            $response = $client->get("http://$ip/server/auxi/public/api/staff");
+            $response = $client->get("http://$ip/api/staff");
             if($response->getStatusCode() == 200){
                 $json = json_decode($response->getBody(),true);
                 $list = [];

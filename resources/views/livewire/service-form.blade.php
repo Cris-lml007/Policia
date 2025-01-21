@@ -28,6 +28,9 @@
                             ? 'En Progreso'
                             : 'Finalizado') }}">
             </div>
+            <div class="input-group">
+                <a wire:click="update" class="btn btn-primary" style="width: 100%;"><i class="fa fa-pen"></i> Actualizar</a>
+            </div>
             <div wire:ignore id="map"></div>
             <div>
                 <table wire:ignore>

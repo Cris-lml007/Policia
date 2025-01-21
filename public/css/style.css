@@ -258,3 +258,9 @@ tr:nth-child(even){
     background-color: #E9E9E9;
     cursor: pointer;
 }
+
+.container-float{
+    position: fixed;
+    bottom: 3%;
+    right: 1%;
+}

@@ -37,9 +37,9 @@
         <input wire:model.live="password" type="password" class="form-control">
     </div>
     @error('password')
-        <span class="text-danger">
-            <strong>{{ $message }}</strong>
-        </span>
+    <span class="text-danger">
+        <strong>{{ $message }}</strong>
+    </span>
     @enderror
     <div class="form-check form-switch">
         <input wire:click="toggleActive" wire:model="active" class="form-check-input" type="checkbox" role="switch"

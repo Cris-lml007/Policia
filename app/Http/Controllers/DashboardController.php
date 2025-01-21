@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Gate;
 
 class DashboardController extends Controller
 {
+    public function __construct() {
+        $this->middleware(function($request,$next){
+            if(Auth::user()->role == Role::DISABLED) return redirect(route('activate'));
+            else return $next($request);
+        });
+    }
+
     public function staff(){
         if(!Gate::allows('admin'))
             return redirect(route('dashboard.home'));
@@ -41,11 +48,27 @@ class DashboardController extends Controller
                     $u->save();
                 }
         }
-        if(Gate::allows('admin'))
-            return view('home');
-        else if(Gate::allows('supervisor'))
-            return view('service-supervisor');
-        else return view('qrscan');
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $user->refresh();
+        if(!Auth::check()) return abort(404);
+        if(Auth::user()->role == Role::ADMIN){
+            $services = Service::orderBy('date_start')->paginate();
+            return view('service-admin',compact(['services']));
+        }else if(Auth::user()->role == Role::SUPERVISOR){
+            $service = GroupService::where('user_ci',Auth::user()->ci)->whereHas('service',function($query){
+                $query->where('date_start','<=',Carbon::now())->where('date_end','>=',Carbon::now());
+            })->first();
+            return view('service-supervisor',compact(['service']));
+        }
+        // if(Gate::allows('admin'))
+        //     return view('home');
+        // else if(Gate::allows('supervisor'))
+        //     return view('service-supervisor');
+        return view('qrscan');
+        return abort(404);
+
+
     }
     public function service(){
         if(!Auth::check()) return abort(404);

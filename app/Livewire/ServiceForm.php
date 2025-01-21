@@ -2,9 +2,12 @@
 
 namespace App\Livewire;
 
+use App\Models\DetailService;
 use App\Models\Geofence;
 use App\Models\GroupService;
 use App\Models\Service;
+use App\Models\User;
+use GuzzleHttp\Client;
 use Livewire\Component;
 
 class ServiceForm extends Component
@@ -32,6 +35,53 @@ class ServiceForm extends Component
             'group_service_id' => $id,
             'points' => json_encode(json_decode($geofence)[0])
         ]);
+    }
+
+    public function update(){
+        try{
+            $client = new Client();
+            $ip =env('IP_SERVICE','localhost:8000');
+            $response = $client->get("http://$ip/api/service/$this->service->cod");
+            if($response->getStatusCode() == 200){
+                $service = json_decode($response->getBody());
+                $this->service->title = $service->servicio;
+                $this->service->date_start = $service->fecha_inicio;
+                $this->service->date_end = $service->fecha_fin;
+                $this->service->lat = $service->latitud;
+                $this->service->long = $service->longitud;
+                $this->service->groupService()->delete();
+                $this->service->save();
+            }else{
+                return;
+            }
+
+            $data1 = [];
+            foreach ($service['grupos'] as $value) {
+                if(!User::createForAPI($value['encargado'])){
+                    $this->service->groupService()->delete();
+                    return;
+                }
+                $group = GroupService::create([
+                    'service_id' => $this->service->id,
+                    'user_ci' => $value['encargado']
+                ]);
+                foreach ($value['integrantes'] as $v) {
+                    if(!User::createForAPI($value['encargado'])){
+                        $this->service->groupService()->delete();
+                        return;
+                    }
+                    $data1 [] = [
+                        'group_service_id' => $group->id,
+                        'user_ci' => $v,
+                        'service_id' => $this->service->id
+                    ];
+                }
+                DetailService::upsert($data1,[],[]);
+            }
+
+        }finally{
+            return redirect()->route('dashboard.getService',$this->service->id);
+        }
     }
 
     public function destroyGeofence($id){

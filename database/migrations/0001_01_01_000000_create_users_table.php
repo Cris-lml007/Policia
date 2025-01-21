@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Role;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,7 +21,7 @@ return new class extends Migration
             $table->integer('cellular')->nullable();
             $table->string('username')->unique();
             $table->string('password');
-            $table->integer('role')->default(1);
+            $table->integer('role')->default(Role::DISABLED->value);
             $table->boolean('active')->default(true);
             $table->rememberToken();
             $table->timestamps();

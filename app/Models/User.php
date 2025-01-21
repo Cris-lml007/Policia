@@ -5,6 +5,8 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\Role;
+use Exception;
+use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -37,6 +39,33 @@ class User extends Authenticatable
 
     public function detailService(){
         return $this->hasMany(DetailService::class,'user_ci','ci');
+    }
+
+    public static function createForAPI($ci){
+        try{
+            if(!User::where('ci',$ci)->exists()){
+                $client = new Client();
+                $response = $client->get('http://'.env('IP_SERVICE','localhost:8000').'/api/staff/'.$ci);
+                if($response->getStatusCode() == 200){
+                    $obj = json_decode($response->getBody(),true);
+                    User::create([
+                        'ci' => $ci,
+                        'username' => $obj['name'].$ci,
+                        'password' => bcrypt('12345678'),
+                        'surname' => $obj['surname'],
+                        'name' => $obj['name'],
+                        'cellular' => $obj['cellular'],
+                        'range' => $obj['range']
+                    ]);
+                    return true;
+                }
+                return false;
+            }
+            return true;
+
+        }catch(Exception){
+            return false;
+        }
     }
 
 
