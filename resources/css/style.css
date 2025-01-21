@@ -30,7 +30,7 @@
     display: flex;
     min-height: 100vh;
 }
-.fondo{   
+.fondo{
     background-color: var(--tercero);
     background-color: var(--tercero-1);
     background: radial-gradient(circle, transparent 20%, #dfe9cd 20%, #dfe9cd 80%, transparent 80%, transparent),
@@ -63,7 +63,7 @@
 
 .form_titulo{
     font-size: 2.3rem;
-    font-weight: 900;  
+    font-weight: 900;
     margin: .2em;
     color: var(--segundo2)
 }
@@ -105,7 +105,7 @@
 
 .form_select{
     color: var(--color);
-    cursor: pointer;    
+    cursor: pointer;
     font-size: 1rem;
     padding: .3em;
 }
@@ -139,7 +139,7 @@
     border: 0 none;
     border-radius: .5em;
 
-    
+
     justify-content: center;
     align-items: center;
     flex: 0 0 160px;
@@ -148,7 +148,7 @@
         transition: all 150ms linear;
         background-color: var(--segundo1);
     }
-    
+
     &:active {
         transition: all 150ms linear;
         background-color: var(--segundo);
@@ -157,4 +157,11 @@
 .button_span{
     margin: .5em;
     color: #fff;
+}
+
+
+.container-float{
+    position: fixed;
+    bottom: 3%;
+    right: 1%;
 }
