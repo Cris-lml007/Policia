@@ -33,9 +33,9 @@ class StaffTable extends Component
 
     public function syncStaff(){
         $client = new Client();
-        $ip =env('IP_SERVICE','localhost:8000');
+        $ip =env('API_STAFF');
         try{
-            $response = $client->get("http://$ip/api/staff");
+            $response = $client->get('http://'.$ip);
             if($response->getStatusCode() == 200){
                 $json = json_decode($response->getBody(),true);
                 $list = [];

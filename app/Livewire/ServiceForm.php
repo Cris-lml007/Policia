@@ -40,8 +40,8 @@ class ServiceForm extends Component
     public function update(){
         try{
             $client = new Client();
-            $ip =env('IP_SERVICE','localhost:8000');
-            $response = $client->get("http://$ip/api/service/$this->service->cod");
+            $ip =env('API_SERVICE');
+            $response = $client->get("http://$ip/$this->service->cod");
             if($response->getStatusCode() == 200){
                 $service = json_decode($response->getBody());
                 $this->service->title = $service->servicio;

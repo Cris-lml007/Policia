@@ -45,7 +45,7 @@ class User extends Authenticatable
         try{
             if(!User::where('ci',$ci)->exists()){
                 $client = new Client();
-                $response = $client->get('http://'.env('IP_SERVICE','localhost:8000').'/api/staff/'.$ci);
+                $response = $client->get('http://'.env('API_STAFF').'/'.$ci);
                 if($response->getStatusCode() == 200){
                     $obj = json_decode($response->getBody(),true);
                     User::create([

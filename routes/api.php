@@ -79,32 +79,3 @@ Route::get('/info',function(Request $request){
     });
 // });
 //
-Route::get('/createForAPI/{ci}',function($ci){
-    try{
-        if(!User::where('ci',$ci)->exists()){
-            $client = new Client();
-            $response = $client->get('http://'.env('IP_SERVICE','localhost:8000').'/api/staff/'.$ci);
-            if($response->getStatusCode() == 200){
-                $obj = json_decode($response->getBody(),true);
-                User::create([
-                    'ci' => $ci,
-                    'username' => $obj['name'].$ci,
-                    'password' => bcrypt('12345678'),
-                    'surname' => $obj['surname'],
-                    'name' => $obj['name'],
-                    'cellular' => $obj['cellular'],
-                    'range' => $obj['range']
-                ]);
-                return response("usuario creado");
-            }else{
-                return response("el usuario no se encontro",200);
-            }
-        }
-        return response("usuario ya existe");
-
-    }catch(Exception $e){
-        return response("error: $e");
-    }
-    // if(User::createForAPI($ci)) return response("user created successfully",200);
-    // else return response("user already exists",202);
-});
