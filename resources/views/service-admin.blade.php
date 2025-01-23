@@ -11,10 +11,7 @@
         <div class="container label">
             <h2 class="form_titulo subtitulo">Servicios policiales</h2>
             <div class="end">
-                <button class="button inline_button">
-                    Sincronizar servicios
-                    <span class="fas fa-sync"></span>
-                </button>
+                <livewire:service-sync></livewire:service-sync>
             </div>
 
             <table id="parent">
