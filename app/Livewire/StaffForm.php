@@ -2,8 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Models\Person;
-use App\Models\Range;
 use App\Models\User;
 use Exception;
 use GuzzleHttp\Client;
@@ -14,6 +12,7 @@ class StaffForm extends Component
 {
 
     public $id;
+    #[Validate('unique:users,ci')]
     public $ci;
     public $surname;
     public $name;
@@ -29,7 +28,8 @@ class StaffForm extends Component
     public $isSave = false;
     public User $person;
 
-    public $listeners = ['get'=>'getPerson'];
+    public $listeners = ['get'=>'getPerson','new'=>'newLocal'];
+    public $local = false;
 
     public function toggleActive(){
         $user = User::where('ci',$this->ci)->first();
@@ -57,6 +57,27 @@ class StaffForm extends Component
             $this->active = $p->active==0 ? true : false;
             $this->username = $p->username;
         }
+    }
+
+    public function newLocal(){
+        $this->local = true;
+    }
+
+    public function createLocal(){
+        $this->validate();
+        $this->person = new User();
+        $this->person->ci = $this->ci;
+        $this->person->surname = $this->surname;
+        $this->person->name = $this->name;
+        $this->person->cellular = $this->cellular;
+        $this->person->range = $this->range;
+        $this->person->username = $this->username;
+        $this->person->password = bcrypt($this->password);
+        $this->person->active = $this->active ? 0 : 1;
+        $this->person->local = true;
+        $this->person->save();
+        $this->dispatch('update');
+        $this->isSave = true;
     }
 
 

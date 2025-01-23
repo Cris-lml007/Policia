@@ -2,9 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Enums\Role;
 use App\Models\User;
 use Exception;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -18,15 +20,31 @@ class StaffTable extends Component
     use WithPagination;
     public function render()
     {
-        if(!empty($this->search)){
-            $persons = User::where('surname','like','%'.$this->search.'%')
-                ->orWhere('name','like','%'.$this->search.'%')
-                ->orWhere('range','like','%'.$this->search.'%')
-                ->orWhere('cellular','like','%'.$this->search.'%')
-                ->where('role','!=',0)
-                ->paginate(10);
+        if(Auth::user()->role == Role::ADMIN){
+            if(!empty($this->search)){
+                $persons = User::where('surname','like','%'.$this->search.'%')
+                    ->orWhere('name','like','%'.$this->search.'%')
+                    ->orWhere('range','like','%'.$this->search.'%')
+                    ->orWhere('cellular','like','%'.$this->search.'%')
+                    ->paginate(10);
+            }else{
+                $persons = User::paginate(10);
+            }
         }else{
-            $persons = User::where('role','!=',0)->paginate(10);
+            if(!empty($this->search)){
+                $persons = User::where(function($query){
+                    $query->where('surname','like','%'.$this->search.'%')
+                          ->orWhere('name','like','%'.$this->search.'%')
+                          ->orWhere('range','like','%'.$this->search.'%')
+                          ->orWhere('cellular','like','%'.$this->search.'%');
+                })->where(function($query){
+                    $query->where('role',Role::STAFF->value)
+                          ->orWhere('role',Role::SUPERVISOR->value);
+                })
+                  ->paginate(10);
+            }else{
+                $persons = User::orwhere('role',Role::SUPERVISOR)->orWhere('role',Role::STAFF)->paginate(10);
+            }
         }
         return view('livewire.staff-table',compact(['persons']));
     }
@@ -54,12 +72,16 @@ class StaffTable extends Component
                 User::upsert($list,['ci','username'],['cellular','range']);
                 $this->message = 1;
             }
-        }catch(Exception $error){
+        }catch(Exception){
             $this->message = -1;
         }
     }
 
     public function getPerson($id){
         $this->dispatch('get',$id);
+    }
+
+    public function newLocal(){
+        $this->dispatch('new');
     }
 }

@@ -35,7 +35,6 @@ Route::prefix('/dashboard')->middleware('auth')->controller(DashboardController:
     Route::get('reports','reports')->name('dashboard.reports');
     Route::get('/service/{service}','getService')->name('dashboard.getService');
     Route::get('/reports/get','getReport')->name('dashboard.report');
-    Route::get('/token');
-    Route::get('/profile',Profile::class)->name('dashboard.profile');
+    Route::get('/profile',Profile::class)->can('staff')->name('dashboard.profile');
 });
 

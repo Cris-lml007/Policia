@@ -317,16 +317,22 @@ return [
         //     'can' => ['admin']
         // ],
         [
+            'text' => 'Gestión de Usuarios',
+            'url' => '#',
+            'icon' => 'fa fa-users',
+            'can' => ['admin']
+        ],
+        [
             'text' => 'Gestión de Personal',
             'route' => 'dashboard.staff',
             'icon' => 'fa fa-users',
-            'can' => ['admin']
+            'can' => ['admin','user']
         ],
         [
             'text' => 'Lista de servicios',
             'route' => 'dashboard.service',
             'icon' => 'fa fa-clipboard-list',
-            'can' => ['admin']
+            'can' => ['admin','user']
         ],
         [
             'text' => 'Servicio policial',
@@ -344,7 +350,13 @@ return [
             'text' => 'Generar reportes',
             'route' => 'dashboard.reports',
             'icon' => 'fa fa-file-medical',
-            'can' => ['supervisor','admin']
+            'can' => ['supervisor']
+        ],
+        [
+            'text' => 'Perfil',
+            'route' => 'dashboard.profile',
+            'icon' => 'fa fa-user',
+            'can' => ['supervisor','staff']
         ]
     ],
 

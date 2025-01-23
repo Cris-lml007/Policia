@@ -6,6 +6,7 @@ use App\Enums\Role;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Nette\Utils\Strings;
 
 class DatabaseSeeder extends Seeder
 {
@@ -39,5 +40,15 @@ class DatabaseSeeder extends Seeder
             'role' => Role::SUPERVISOR,
             'password' => '12345678'
         ]);
+        $u = User::create([
+            'ci' => 1111,
+            'surname' => 'service',
+            'name' => 'service',
+            'username' => 'service',
+            'password' => str()->random(10),
+            'cellular' => 1111,
+            'role' => Role::SERVICE
+        ]);
+        $u->createToken('service');
     }
 }

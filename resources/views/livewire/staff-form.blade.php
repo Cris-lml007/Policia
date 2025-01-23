@@ -1,32 +1,37 @@
 <div>
     <div class="input-group">
         <span class="input-group-text">CI</span>
-        <input wire:model.lazy="ci" type="number" class="form-control" readonly>
+        <input wire:model.lazy="ci" type="number" class="form-control" @if($local == false)readonly @endif>
     </div>
+    @error('ci')
+    <span class="text-danger">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
     <div class="input-group">
         <span class="input-group-text">Apellidos</span>
-        <input wire:model.lazy="surname" type="text" class="form-control" readonly>
+        <input wire:model.lazy="surname" type="text" class="form-control" @if($local == false)readonly @endif >
     </div>
     <div class="input-group">
         <span class="input-group-text">Nombres</span>
-        <input wire:model.lazy="name" type="text" class="form-control" readonly>
+        <input wire:model.lazy="name" type="text" class="form-control" @if($local == false)readonly @endif >
     </div>
     <div class="input-group">
         <span class="input-group-text">Rango</span>
-        <input wire:model.lazy="range" class="form-control" list="hola" readonly>
+        <input wire:model.lazy="range" class="form-control" list="hola" @if($local == false)readonly @endif >
     </div>
     <div class="input-group">
         <span class="input-group-text">Celular</span>
-        <input wire:model.lazy="cellular" type="number" class="form-control" max="8" min="8" readonly>
+        <input wire:model.lazy="cellular" type="number" class="form-control" max="8" min="8" @if($local == false)readonly @endif >
     </div>
     <div class="input-group">
         <span class="input-group-text">Cargo</span>
-        <input wire:model="position" type="text" class="form-control" readonly placeholder="NO DISPONIBLE">
+        <input wire:model="position" type="text" class="form-control" @if($local == false)readonly @endif  placeholder="NO DISPONIBLE">
     </div>
     <h5 class="card-text mt-2 mb-2">Credencial de Acceso</h5>
     <div class="input-group">
         <span class="input-group-text">usuario</span>
-        <input wire:model="username" class="form-control" readonly>
+        <input wire:model="username" class="form-control" @if($local == false)readonly @endif >
     </div>
     <div class="input-group">
         <span class="input-group-text">Contraseña</span>
@@ -49,7 +54,7 @@
     <div class="modal-footer px-0">
         <button wire:click="restart" class="btn-secondary btn" data-bs-dismiss="modal">Cerrar</button>
         @if (!$isSave)
-            <button wire:click="updatePassword" class="btn-success btn"
+            <button @if ($local == false) wire:click="updatePassword" @else wire:click="createLocal" @endif class="btn-success btn"
                 @if (empty($password) or empty($password_confirmation)) disabled @endif>Guardar</button>
         @endif
     </div>

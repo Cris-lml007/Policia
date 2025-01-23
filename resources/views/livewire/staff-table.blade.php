@@ -50,11 +50,14 @@
             </div>
         </div>
     </div>
-    <div class="container-float">
-        <button style="border-radius: 50%;width: 60px;height: 60px;font-size: 25px;box-shadow: 0px 0px 5px black;" class="btn btn-primary">
-            <i class="fa fa-file"></i>
-        </button>
-    </div>
+    @can('admin')
+        <div class="container-float">
+            <button data-bs-toggle="modal" data-bs-target="#modalStaff" wire:click="newLocal" style="border-radius: 50%;width: 60px;height: 60px;font-size: 25px;box-shadow: 0px 0px 5px black;"
+                class="btn btn-primary">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    @endcan
 </div>
 
 @script
@@ -78,7 +81,7 @@
                                 'icon': 'success'
 
                             });
-                        } else if($wire.message == -1) {
+                        } else if ($wire.message == -1) {
                             Swal.fire({
                                 'title': 'Hubo un Error',
                                 'text': 'No se pudo completar la sincronización.',

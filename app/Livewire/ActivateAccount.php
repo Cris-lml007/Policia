@@ -21,15 +21,16 @@ class ActivateAccount extends Component
     public function changePassword(){
         try {
             if(($this->password == $this->password1) && strlen($this->password)>=8){
+                /** @var \App\Models\User $user */
                 $user = Auth::user();
                 $user->password = $this->password;
-                $user->role = Role::USER;
+                $user->role = Role::STAFF;
                 $user->save();
                 return redirect(route('dashboard.home'));
             }
             $this->dispatch('error');
             return;
-        } catch (\Throwable $th) {
+        } catch (\Throwable) {
             $this->dispatch('error');
         }
     }

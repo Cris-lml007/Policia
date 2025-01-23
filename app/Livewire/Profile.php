@@ -12,8 +12,8 @@ class Profile extends Component
 
     public function generateToken(){
         $user = User::find(Auth::user()->id);
-        if(!$user()->tokens()->exists())
-            $this->token = $user()->createToken('mobile')->plainTextToken;
+        if(!$user->tokens()->exists())
+            $this->token = $user->createToken('mobile')->plainTextToken;
         else
             $this->dispatch("alert");
     }
