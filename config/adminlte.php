@@ -317,12 +317,6 @@ return [
         //     'can' => ['admin']
         // ],
         [
-            'text' => 'Gestión de Usuarios',
-            'url' => '#',
-            'icon' => 'fa fa-users',
-            'can' => ['admin']
-        ],
-        [
             'text' => 'Gestión de Personal',
             'route' => 'dashboard.staff',
             'icon' => 'fa fa-users',

@@ -49,6 +49,6 @@ class DatabaseSeeder extends Seeder
             'cellular' => 1111,
             'role' => Role::SERVICE
         ]);
-        $u->createToken('service');
+        echo "token: ".$u->createToken('service')->plainTextToken.PHP_EOL;
     }
 }
