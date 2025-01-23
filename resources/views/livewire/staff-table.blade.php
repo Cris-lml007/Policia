@@ -81,6 +81,7 @@
                                 'icon': 'success'
 
                             });
+                            clearInterval(timerInterval);
                         } else if ($wire.message == -1) {
                             Swal.fire({
                                 'title': 'Hubo un Error',
@@ -88,6 +89,7 @@
                                 'icon': 'error'
 
                             });
+                            clearInterval(timerInterval);
                         }
                     }, 1000);
                 },
