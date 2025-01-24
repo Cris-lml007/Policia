@@ -18,7 +18,7 @@ Route::middleware('auth:sanctum')->group(function(){
         if (!$service) {
             return response("service not found",404);
         }
-        if(Carbon::parse($service->date_start)<Carbon::now()){
+        if(Carbon::parse($service->date_start)>Carbon::now()){
             $service->delete();
             return response("service deleted successfully",200);
         }
