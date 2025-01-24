@@ -15,6 +15,9 @@ Route::get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('/service/{codigo}/destroy',function(Request $request){
         $service = Service::where('cod',$request->codigo)->first();
+        if (!$service) {
+            return response("service not found",404);
+        }
         if(Carbon::parse($service->date_start)<Carbon::now()){
             $service->delete();
             return response("service deleted successfully",200);
