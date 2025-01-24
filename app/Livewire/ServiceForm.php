@@ -41,7 +41,7 @@ class ServiceForm extends Component
         try{
             $client = new Client();
             $ip =env('API_SERVICE');
-            $response = $client->get("http://$ip/$this->service->cod");
+            $response = $client->get("$ip/$this->service->cod");
             if($response->getStatusCode() == 200){
                 $service = json_decode($response->getBody());
                 $this->service->title = $service->servicio;

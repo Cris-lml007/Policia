@@ -53,7 +53,7 @@ class StaffTable extends Component
         $client = new Client();
         $ip =env('API_STAFF');
         try{
-            $response = $client->get('http://'.$ip);
+            $response = $client->get($ip);
             if($response->getStatusCode() == 200){
                 $json = json_decode($response->getBody(),true);
                 $list = [];

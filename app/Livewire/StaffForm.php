@@ -47,9 +47,9 @@ class StaffForm extends Component
         $this->ci = $p->ci;
         $client = new Client();
         try {
-            $response = $client->get('http://localhost:9000/api/staff/'.$ci);
+            $response = $client->get(env('API_STAFF').'/'.$ci);
             $json = json_decode($response->getBody());
-        } catch (Exception $error) {
+        } catch (Exception) {
         }finally{
             $this->cellular = $p->cellular;
             $this->range = $p->range;
