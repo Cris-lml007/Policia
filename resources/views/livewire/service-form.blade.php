@@ -29,7 +29,8 @@
                             : 'Finalizado') }}">
             </div>
             <div class="input-group">
-                <a wire:click="update" class="btn btn-primary" style="width: 100%;"><i class="fa fa-pen"></i> Actualizar</a>
+                <a wire:click="update" class="btn btn-primary" style="width: 100%;"><i class="fa fa-pen"></i>
+                    Actualizar</a>
             </div>
             <div wire:ignore id="map"></div>
             <div>
@@ -47,7 +48,11 @@
                         @foreach ($service->groupService ?? [] as $item)
                             <tr data-group-id="{{ $item->id }}">
                                 <td>{{ $item->id }}</td>
-                                <td>{{ $item->supervisor->surname . ' ' . $item->supervisor->name }}</td>
+                                @if ($item->supervisor == null)
+                                    <td>Sin Asignar</td>
+                                @else
+                                    <td>{{ $item->supervisor->surname . ' ' . $item->supervisor->name }}</td>
+                                @endif
                                 <td id="geofence-status-{{ $item->id }}">Sin Definir</td>
                                 <td id="geofence-color-{{ $item->id }}">
                                     <i class="fa fa-circle" style="color: #cccccc;"></i>
@@ -77,6 +82,7 @@
                     <th>Apellidos</th>
                     <th>Nombres</th>
                     <th>Grado</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -86,6 +92,9 @@
                         <td>{{ $item->user->surname }}</td>
                         <td>{{ $item->user->name }}</td>
                         <td>{{ $item->user->range }}</td>
+                        <td>
+                            <a>Definir</a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
