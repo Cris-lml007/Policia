@@ -37,7 +37,12 @@ class ServiceForm extends Component
         ]);
     }
 
-    public function update(){
+    public function defineSupervisor($ci,$id){
+        $this->service->groupService()->where('id',$id)->update(['user_ci' => $ci]);
+        $this->dispatch('openModal');
+    }
+
+    public function updateService(){
         try{
             $client = new Client();
             $ip =env('API_SERVICE');
@@ -89,7 +94,7 @@ class ServiceForm extends Component
     }
 
     public function getGroup($id){
-        $this->group =  GroupService::find($id)->detailService;
+        $this->group =  GroupService::find($id);
         $this->dispatch('openModal');
     }
 

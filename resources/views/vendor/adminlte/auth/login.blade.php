@@ -22,6 +22,7 @@
 
 @section('auth_body') --}}
 <link rel="stylesheet" href="{{asset('css/style.css')}}">
+<title>{{ config('app.name', 'Laravel') }}</title>
 <div class="general fondo">
     <form action="{{ $login_url }}" method="post" class="container login">
         <img src="{{asset('img/PoliciaLogo.png')}}" class="rounded mx-auto d-block logo" alt="Logo policía">
