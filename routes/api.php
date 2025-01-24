@@ -34,7 +34,7 @@ Route::middleware('auth:sanctum')->group(function(){
                 'long' => $r['longitud']
             ]);
         } catch (\Throwable $th) {
-            return response("there was an error creating service: $th",400);
+            return response("there was an error creating service",400);
         }
         $data1 = [];
         foreach ($r['grupos'] as $value) {

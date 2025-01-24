@@ -26,7 +26,7 @@
                                 'text': 'Sincronización completada exitosamente.',
                                 'icon': 'success'
 
-                            });
+                            }).then(() => {location.reload();});
                             clearInterval(timerInterval);
                         } else if ($wire.message == -1) {
                             Swal.fire({
@@ -34,7 +34,7 @@
                                 'text': 'No se pudo completar la sincronización.',
                                 'icon': 'error'
 
-                            });
+                            }).then(() => {location.reload();});
                             clearInterval(timerInterval);
                         }
                     }, 1000);

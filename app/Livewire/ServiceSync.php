@@ -45,7 +45,7 @@ class ServiceSync extends Component
 
                         $group = GroupService::create([
                             'service_id' => $service->id,
-                            'user_ci' => $grupo['encargado']
+                            'user_ci' => empty($grupo['encargado']) ? null : $grupo['encargado']
                         ]);
                         $data = [];
                         foreach ($grupo['integrantes'] as $integrante) {
