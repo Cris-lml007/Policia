@@ -49,9 +49,10 @@ class User extends Authenticatable
                 $response = $client->get(env('API_STAFF').'/'.$ci);
                 if($response->getStatusCode() == 200){
                     $obj = json_decode($response->getBody(),true);
+                    $username = strtolower(substr($obj['name'],3).substr($obj['surname'],3)).$obj['ci'];
                     User::create([
                         'ci' => $ci,
-                        'username' => $obj['name'].$ci,
+                        'username' => $username,
                         'password' => bcrypt('12345678'),
                         'surname' => $obj['surname'],
                         'name' => $obj['name'],

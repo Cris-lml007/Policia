@@ -58,9 +58,10 @@ class StaffTable extends Component
                 $json = json_decode($response->getBody(),true);
                 $list = [];
                 foreach ($json as $obj) {
+                    $username = strtolower(substr($obj['name'],0,3).substr($obj['surname'],0,3)).$obj['ci'];
                     $list [] = [
                         'ci' => $obj['ci'],
-                        'username' => $obj['name'].$obj['ci'],
+                        'username' => $username,
                         'password' => bcrypt('12345678'),
                         'surname' => $obj['surname'],
                         'name' => $obj['name'],
