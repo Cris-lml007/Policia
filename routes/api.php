@@ -16,7 +16,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/service/{codigo}/destroy',function(Request $request){
         $service = Service::where('cod',$request->codigo)->first();
         if(Carbon::parse($service->date_start)<Carbon::now()){
-            $service->destroy();
+            $service->delete();
             return response("service deleted successfully",200);
         }
         return response("cannot delete service",202);
@@ -40,7 +40,7 @@ Route::middleware('auth:sanctum')->group(function(){
         foreach ($r['grupos'] as $value) {
             if(!empty($value['encargado'])){
                 if(!User::createForAPI($value['encargado'])){
-                    $service->destroy();
+                    $service->delete();
                     return response("there was an error creating service",400);
                 }
             }
@@ -50,7 +50,7 @@ Route::middleware('auth:sanctum')->group(function(){
             ]);
             foreach ($value['integrantes'] as $v) {
                 if(!User::createForAPI($v)){
-                    $service->destroy();
+                    $service->delete();
                     return response("there was an error creating service",400);
                 }
                 $data1 [] = [
