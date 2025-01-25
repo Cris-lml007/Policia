@@ -29,12 +29,12 @@
                             : 'Finalizado') }}">
             </div>
             <div class="input-group">
-                <a wire:click="update" class="btn btn-primary" style="width: 100%;"><i class="fa fa-pen"></i>
+                <a wire:click="updateService" class="btn btn-primary" style="width: 100%;"><i class="fa fa-pen"></i>
                     Actualizar</a>
             </div>
             <div wire:ignore id="map"></div>
             <div>
-                <table wire:ignore>
+                <table>
                     <thead class="table_header color_header">
                         <tr>
                             <th>Id Grupo</th>
@@ -53,11 +53,11 @@
                                 @else
                                     <td>{{ $item->supervisor->surname . ' ' . $item->supervisor->name }}</td>
                                 @endif
-                                <td id="geofence-status-{{ $item->id }}">Sin Definir</td>
-                                <td id="geofence-color-{{ $item->id }}">
+                                <td wire:ignore id="geofence-status-{{ $item->id }}">Sin Definir</td>
+                                <td wire:ignore id="geofence-color-{{ $item->id }}">
                                     <i class="fa fa-circle" style="color: #cccccc;"></i>
                                 </td>
-                                <td>
+                                <td wire:ignore>
                                     <a wire:click="getGroup({{ $item->id }})" class="btn btn-secondary">
                                         <i class="fa fa-eye"></i>
                                     </a>
@@ -86,14 +86,19 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($group ?? [] as $item)
+                @foreach ($group->detailService ?? [] as $item)
                     <tr>
                         <td>{{ $item->user->ci }}</td>
                         <td>{{ $item->user->surname }}</td>
                         <td>{{ $item->user->name }}</td>
                         <td>{{ $item->user->range }}</td>
                         <td>
-                            <a>Definir</a>
+                            <button wire:click="defineSupervisor({{$item->user->ci}},{{$group->id}})"
+                               @if($item->user->ci==$group->user_ci) disabled @endif
+                               class="btn btn-primary"
+                            >
+                                Definir
+                            </button>
                         </td>
                     </tr>
                 @endforeach
@@ -168,7 +173,9 @@
         document.addEventListener('livewire:initialized', () => {
 
             // abrir modal
-            Livewire.on('openModal', () => {
+        Livewire.on('openModal', () => {
+                {{-- $wire.$refresh(); --}}
+                $('#modal').modal('dispose');
                 $('#modal').modal('show');
             });
 
