@@ -174,9 +174,11 @@
 
             // abrir modal
         Livewire.on('openModal', () => {
-                {{-- $wire.$refresh(); --}}
-                $('#modal').modal('dispose');
-                $('#modal').modal('show');
+                $wire.$refresh().then(() => {
+                    $('#modal').modal('dispose');
+                    $('#modal').modal('show');
+                });
+                {{-- $('#modal').modal('show'); --}}
             });
 
 
