@@ -8,6 +8,7 @@ use App\Models\GroupService;
 use App\Models\Service;
 use App\Models\User;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class ServiceForm extends Component
@@ -43,50 +44,57 @@ class ServiceForm extends Component
     }
 
     public function updateService(){
-        try{
+        DB::beginTransaction();
+        try {
             $client = new Client();
-            $ip =env('API_SERVICE');
+            $ip = env('API_SERVICE');
             $response = $client->get("$ip/$this->service->cod");
-            if($response->getStatusCode() == 200){
-                $service = json_decode($response->getBody());
-                $this->service->title = $service->servicio;
-                $this->service->date_start = $service->fecha_inicio;
-                $this->service->date_end = $service->fecha_fin;
-                $this->service->lat = $service->latitud;
-                $this->service->long = $service->longitud;
-                $this->service->groupService()->delete();
+
+            if ($response->getStatusCode() == 200) {
+                $service = json_decode($response->getBody(), true);
+                $this->service->title = $service['servicio'];
+                $this->service->date_start = $service['fecha_inicio'];
+                $this->service->date_end = $service['fecha_fin'];
+                $this->service->lat = $service['latitud'];
+                $this->service->long = $service['longitud'];
                 $this->service->save();
-            }else{
+                $this->service->groupService()->delete();
+
+                $data1 = [];
+                foreach ($service['grupos'] as $value) {
+                    if (!User::createForAPI($value['encargado']))
+                        throw new \Exception("Error al crear el usuario encargado.");
+                    $group = GroupService::create([
+                        'service_id' => $this->service->id,
+                        'user_ci' => $value['encargado']
+                    ]);
+
+                    foreach ($value['integrantes'] as $v) {
+                        if (!User::createForAPI($v)) throw new \Exception("Error al crear el usuario integrante.");
+
+                        $data1[] = [
+                            'group_service_id' => $group->id,
+                            'user_ci' => $v,
+                            'service_id' => $this->service->id
+                        ];
+                    }
+                }
+
+                DetailService::upsert($data1, [], []);
+                DB::commit();
+                $message = "Se Actualizo Correctamente.";
+            } else {
+                DB::rollBack();
+                $message = "No se Pudo Actualizar";
                 return;
             }
-
-            $data1 = [];
-            foreach ($service['grupos'] as $value) {
-                if(!User::createForAPI($value['encargado'])){
-                    $this->service->groupService()->delete();
-                    return;
-                }
-                $group = GroupService::create([
-                    'service_id' => $this->service->id,
-                    'user_ci' => $value['encargado']
-                ]);
-                foreach ($value['integrantes'] as $v) {
-                    if(!User::createForAPI($value['encargado'])){
-                        $this->service->groupService()->delete();
-                        return;
-                    }
-                    $data1 [] = [
-                        'group_service_id' => $group->id,
-                        'user_ci' => $v,
-                        'service_id' => $this->service->id
-                    ];
-                }
-                DetailService::upsert($data1,[],[]);
-            }
-
-        }finally{
-            return redirect()->route('dashboard.getService',$this->service->id);
+        } catch (\Exception) {
+            DB::rollBack();
+            $message = "No se Pudo Actualizar";
+            return;
         }
+
+        return redirect()->route('dashboard.getService', $this->service->id)->with('message',$message);
     }
 
     public function destroyGeofence($id){

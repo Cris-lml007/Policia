@@ -93,10 +93,8 @@
                         <td>{{ $item->user->name }}</td>
                         <td>{{ $item->user->range }}</td>
                         <td>
-                            <button wire:click="defineSupervisor({{$item->user->ci}},{{$group->id}})"
-                               @if($item->user->ci==$group->user_ci) disabled @endif
-                               class="btn btn-primary"
-                            >
+                            <button wire:click="defineSupervisor({{ $item->user->ci }},{{ $group->id }})"
+                                @if ($item->user->ci == $group->user_ci) disabled @endif class="btn btn-primary">
                                 Definir
                             </button>
                         </td>
@@ -172,8 +170,11 @@
         $wire.getGeofences();
         document.addEventListener('livewire:initialized', () => {
 
+        @if (session('message'))
+            window.Swal.fire({{session('message')}});
+        @endif
             // abrir modal
-        Livewire.on('openModal', () => {
+            Livewire.on('openModal', () => {
                 $wire.$refresh().then(() => {
                     $('#modal').modal('dispose');
                     $('#modal').modal('show');
