@@ -7,31 +7,33 @@
         <div class="container label" style="max-width: 95%;">
             <div class="input-group">
                 <span class="input-group-text">Cod Servicio</span>
-                <input class="form-control" wire:model="cod" readonly>
+                <input wire:ignore class="form-control" value="{{ $cod }}" readonly>
             </div>
             <div class="input-group">
                 <span class="input-group-text">Titulo</span>
-                <input class="form-control" wire:model="title" readonly>
+                <input wire:ignore class="form-control" value="{{ $title }}" readonly>
             </div>
             <div class="input-group">
                 <span class="input-group-text">Fecha de Inicio</span>
-                <input type="datetime-local" class="form-control" wire:model="date_start" readonly>
+                <input wire:ignore type="datetime-local" class="form-control" value="{{ $date_start }}" readonly>
                 <span class="input-group-text">Fecha de Finalización</span>
-                <input type="datetime-local" class="form-control" wire:model="date_end" readonly>
+                <input wire:ignore type="datetime-local" class="form-control" value="{{ $date_end }}" readonly>
             </div>
             <div class="input-group">
                 <span class="input-group-text">Estado</span>
-                <input readonly class="form-control"
-                    value="{{ Carbon::now() < Carbon::parse($service->date_start)
+                <input wire:ignore readonly class="form-control"
+                    value="{{ Carbon::now() < Carbon::parse($date_start)
                         ? 'Programado'
-                        : (Carbon::now() >= Carbon::parse($service->date_start) && Carbon::now() <= Carbon::parse($service->date_end)
+                        : (Carbon::now() >= Carbon::parse($date_start) && Carbon::now() <= Carbon::parse($date_end)
                             ? 'En Progreso'
                             : 'Finalizado') }}">
             </div>
-            <div class="input-group">
-                <a wire:click="updateService" class="btn btn-primary" style="width: 100%;"><i class="fa fa-pen"></i>
-                    Actualizar</a>
-            </div>
+            @if ($modify)
+                <div class="input-group">
+                    <a wire:click="updateService" class="btn btn-primary" style="width: 100%;"><i class="fa fa-pen"></i>
+                        Actualizar</a>
+                </div>
+            @endif
             <div wire:ignore id="map"></div>
             <div>
                 <table>
@@ -61,10 +63,12 @@
                                     <a wire:click="getGroup({{ $item->id }})" class="btn btn-secondary">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <a class="btn btn-success define-geofence"
-                                        data-group-id="{{ $item->id }}">Definir</a>
-                                    <a class="btn btn-danger delete-geofence" data-group-id="{{ $item->id }}"
-                                        style="display: none;">Eliminar</a>
+                                    @if ($modify)
+                                        <a class="btn btn-success define-geofence"
+                                            data-group-id="{{ $item->id }}">Definir</a>
+                                        <a class="btn btn-danger delete-geofence" data-group-id="{{ $item->id }}"
+                                            style="display: none;">Eliminar</a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -82,7 +86,7 @@
                     <th>Apellidos</th>
                     <th>Nombres</th>
                     <th>Grado</th>
-                    <th>Acciones</th>
+                    <th>Supervisor</th>
                 </tr>
             </thead>
             <tbody>
@@ -93,10 +97,12 @@
                         <td>{{ $item->user->name }}</td>
                         <td>{{ $item->user->range }}</td>
                         <td>
-                            <button wire:click="defineSupervisor({{ $item->user->ci }},{{ $group->id }})"
-                                @if ($item->user->ci == $group->user_ci) disabled @endif class="btn btn-primary">
-                                Definir
-                            </button>
+                            @if ($modify)
+                                <button wire:click="defineSupervisor({{ $item->user->ci }},{{ $group->id }})"
+                                    @if ($item->user->ci == $group->user_ci) disabled @endif class="btn btn-primary">
+                                    Definir
+                                </button>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -170,9 +176,9 @@
         $wire.getGeofences();
         document.addEventListener('livewire:initialized', () => {
 
-        @if (session('message'))
-            window.Swal.fire({{session('message')}});
-        @endif
+            @if (session('message'))
+                window.Swal.fire({{ session('message') }});
+            @endif
             // abrir modal
             Livewire.on('openModal', () => {
                 $wire.$refresh().then(() => {
