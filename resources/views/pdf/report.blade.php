@@ -13,6 +13,9 @@
             padding: 0;
             background-color: #f9f9f9;
         }
+        html {
+            margin: 0;
+        }
 
         .general {
             padding: 20px;
@@ -89,7 +92,8 @@
         <div class="container">
             <div class="logo-container">
                 <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/img/PoliciaLogo.png'))) }}"
-                    <h2>Reportes de asistencia</h2>
+                <h2>Reporte de Control de Asistencia</h2>
+                <h4 style="margin-top: 0;margin-bottom: 0;">{{$groupService->service_id}}</h4>
             </div>
             <div class="container">
                 <ul class="list-group" style="margin-bottom: 1em;">
@@ -98,29 +102,32 @@
                         <b>Fecha de operación:</b>
                         {{ $groupService->service->date_start . ' - ' . $groupService->service->date_end }}
                     </li>
-                    <li class="list-group-item"><b>Cantidad efectivos:</b> {{ $groupService->detailService()->count() }}
+                    <li class="list-group-item"><b>Cantidad Efectivos:</b> {{ $groupService->detailService()->count() }}
                     </li>
-                    <li class="list-group-item"><b>Total asistencias:</b> {{ $attendance }}</li>
-                    <li class="list-group-item"><b>Total ausencias:</b> {{ $attendance - $aus->attendance_count }}</li>
+                    <li class="list-group-item"><b>Controles Realizados:</b> {{ $attendance }}</li>
+                    <li class="list-group-item"><b>Total Ausencias:</b> {{ $absences }}</li>
                 </ul>
                 <table>
                     <thead>
                         <tr>
+                            <th style="text-align: center;" colspan="5">LISTA DE AUSENCIAS</th>
+                        </tr>
+                        <tr>
                             <th>Rango</th>
-                            <th>Apellidos</th>
-                            <th>Nombres</th>
+                            <th colspan="2">Apellidos y Nombres</th>
                             <th>Cargo</th>
-                            <th>Asistencia controles</th>
+                            <th>Asistencias</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($groupService->detailService as $item)
+                        @foreach ($groupService->detailService()->whereHas('attendances', function ($query) use ($attendance) {
+                            $query->selectRaw('count(*) as total')->havingRaw("total < $attendance");
+                        })->get() ?? [] as $item)
                             <tr>
                                 <td>{{ $item->user->range }}</td>
-                                <td>{{ $item->user->surname }}</td>
-                                <td>{{ $item->user->name }}</td>
+                                <td colspan="2">{{ $item->user->surname." ".$item->user->name }}</td>
                                 <td>NO DISPONIBLE</td>
-                                <td>{{ $item->user->detailService()->where('service_id', $groupService->service->id)->first()->attendances()->count() }}
+                                <td style="text-align: center;">{{ $item->user->detailService()->where('service_id', $groupService->service->id)->first()->attendances()->count() }}
                                 </td>
                             </tr>
                         @endforeach

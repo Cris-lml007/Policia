@@ -29,10 +29,10 @@
                         <b>Cantidad efectivos: </b> {{ $groupService->detailService()->count() }}
                     </li>
                     <li class="list-group-item">
-                        <b>Total asistencias: </b> {{$attendance}}
+                        <b>Controles Realizados: </b> {{$attendance}}
                     </li>
                     <li class="list-group-item">
-                        <b>Total ausencias: </b> {{ $attendance - $aus->attendance_count}}
+                        <b>Total ausencias: </b> {{ $absences}}
                     </li>
                     {{-- <li class="list-group-item"> --}}
                     {{--     <b>Rondas de control realizadas: </b> 3 --}}
@@ -44,7 +44,7 @@
                         <th>Apellidos</th>
                         <th>Nombres</th>
                         <th>Cargo</th>
-                        <th>Asistencia formación</th>
+                        {{-- <th>Asistencia formación</th> --}}
                         <th>Asistencia controles</th>
                     </thead>
                     @foreach ($groupService->detailService as $item)
@@ -53,7 +53,7 @@
                         <td>{{$item->user->surname}}</td>
                         <td>{{$item->user->name}}</td>
                         <td>NO DISPONIBLE</td>
-                        <td><i class="fa fa-circle text-success"></i></td>
+                        {{-- <td><i class="fa fa-circle text-success"></i></td> --}}
                         <td>{{$item->user->detailService()->where('service_id',$groupService->service->id)->first()->attendances()->count()}} </td>
                     </tr>
                     @endforeach
